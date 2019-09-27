@@ -3,6 +3,7 @@ import random
 
 
 def rock_paper_scissors():
+    """Takes an input and produces a string based on the input and the output of the random number generator"""
     r_p_s = random.randint(0, 2)
 # Rock = 0, Scissors = 1, Paper = 2
     guess = input("Input either rock, paper or scissors: ").strip().capitalize()
@@ -43,13 +44,10 @@ depending the the input and the number randomly generated.
 
 
 def main():
+    """Executes the program"""
     rock_paper_scissors()
     return
 
-
-"""
-Execute the program.
-"""
 
 if __name__ == "__main__":
     main()
