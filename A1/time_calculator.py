@@ -1,4 +1,5 @@
 def seconds_conversion(seconds, conversion):
+    """Divides the first parameter by the second parameter"""
     converted_number = seconds / conversion
     return int(converted_number)
 
@@ -15,6 +16,7 @@ Return the quotient of the two parameters.
 
 
 def remainder_seconds(seconds, conversion):
+    """Takes the remainder of the quotient of the first parameter divided by the second"""
     remaining_seconds = seconds % conversion
     return remaining_seconds
 
@@ -34,6 +36,7 @@ seconds_in_minute = 60
 
 
 def time_calculator(seconds):
+    """Converts the parameter into four different integers"""
     if seconds >= seconds_in_day:
         days = seconds_conversion(seconds, seconds_in_day)
         seconds = remainder_seconds(seconds, seconds_in_day)
@@ -87,13 +90,10 @@ Return the amount of seconds converted into days, hours, minutes and seconds.
 
 
 def main():
+    """Executes the program"""
     print(time_calculator(174580))
     return
 
-
-"""
-Executes the program
-"""
 
 if __name__ == "__main__":
     main()
