@@ -1,34 +1,32 @@
 def colour_mixer():
-    colour = int(input("Enter your first colour (Red = 0) (Blue = 1) (Yellow = 2):"))
-    colour_2 = int(input("Enter your second colour (Red - 0) (Blue = 1) (Yellow = 2):"))
-    if colour + colour_2 == 1:
+    """Takes an input and produces one of four strings depending on it"""
+    colour = input("Enter your first colour:").strip().capitalize()
+    colour_2 = input("Enter your second colour:").strip().capitalize()
+    if colour == "Red" and colour_2 == "Blue":
         print("Your secondary colour is purple.")
-    elif colour + colour_2 == 2:
+    elif colour == "Yellow" and colour_2 == "Red":
         print("Your secondary colour is orange.")
-    elif colour + colour_2 == 3:
+    elif colour == "Blue" and colour_2 == "Yellow":
         print("Your secondary colour is green.")
     else:
-        print("Invalid colour combination.")
+        print("Invalid input and/or colour combination.")
     return
 
 
 """
 Return the colour combination from two inputted values.
 
-:precondition: Must input a number between 0 and 2
-:postcondition: Output a string based on the operation from the two numbers inputted
+:precondition: Must input the correct three colours
+:postcondition: Output a string based on the colours inputted
 :return: A string containing the colour combination
 """
 
 
 def main():
+    """Executes the program"""
     colour_mixer()
     return
 
-
-"""
-Executes the program
-"""
 
 if __name__ == "__main__":
     main()
