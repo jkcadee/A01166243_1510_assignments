@@ -1,4 +1,5 @@
-def number_of_roman_numeral(number_1, number_2):
+def divisor_for_roman_numeral(number_1, number_2):
+    """Divides the first parameter by the second parameter"""
     num = number_1 / number_2
     return num
 
@@ -15,6 +16,7 @@ Return the quotient of two numbers.
 
 
 def remainder_number(number_1, number_2):
+    """Takes the remainder from the quotient of the first parameter divided by the second"""
     remainder = number_1 % number_2
     return remainder
 
@@ -29,95 +31,110 @@ Return the remainder of two numbers.
 :return: The remainder of number_1 and number_2
 """
 m = 1000
+# Every 1000
 cm = 900
+# Every 900
 d = 500
+# Every 500
 cd = 400
+# Every 400
 c = 100
+# Every 100
 xc = 90
+# Every 90
 l = 50
+# Every 50
 xl = 40
+# Every 40
 x = 10
+# Every 10
 ix = 9
+# Every 9
 v = 5
+# Every 5
 iv = 4
+# Every 4
 i = 1
+# Every 1
 
 
 def convert_to_roman_numeral(positive_int):
+    """Converts the number in the parameter into a string with characters signifying equivalent values in roman
+        numerals"""
     if positive_int >= m:
-        num_of_m = number_of_roman_numeral(positive_int, m)
+        num_of_m = divisor_for_roman_numeral(positive_int, m)
         positive_int = remainder_number(positive_int, m)
     else:
         num_of_m = 0
 # Calculates the amount of M's
     if positive_int >= cm:
-        num_of_cm = number_of_roman_numeral(positive_int, cm)
+        num_of_cm = divisor_for_roman_numeral(positive_int, cm)
         positive_int = remainder_number(positive_int, cm)
     else:
         num_of_cm = 0
 # Calculates the amount of CM's
     if positive_int >= d:
-        num_of_d = number_of_roman_numeral(positive_int, d)
+        num_of_d = divisor_for_roman_numeral(positive_int, d)
         positive_int = remainder_number(positive_int, d)
     else:
         num_of_d = 0
 # Calculates the amount of D's
     if positive_int >= cd:
-        num_of_cd = number_of_roman_numeral(positive_int, cd)
+        num_of_cd = divisor_for_roman_numeral(positive_int, cd)
         positive_int = remainder_number(positive_int, cd)
     else:
         num_of_cd = 0
 # Calculates the amount of CD's
     if positive_int >= c:
-        num_of_c = number_of_roman_numeral(positive_int, c)
+        num_of_c = divisor_for_roman_numeral(positive_int, c)
         positive_int = remainder_number(positive_int, c)
     else:
         num_of_c = 0
 # Calculates the amount of C's
     if positive_int >= xc:
-        num_of_xc = number_of_roman_numeral(positive_int, xc)
+        num_of_xc = divisor_for_roman_numeral(positive_int, xc)
         positive_int = remainder_number(positive_int, xc)
     else:
         num_of_xc = 0
 # Calculates the amount of XC's
     if positive_int >= l:
-        num_of_l = number_of_roman_numeral(positive_int, l)
+        num_of_l = divisor_for_roman_numeral(positive_int, l)
         positive_int = remainder_number(positive_int, l)
     else:
         num_of_l = 0
 # Calculates the amount of L's
     if positive_int >= xl:
-        num_of_xl = number_of_roman_numeral(positive_int, xl)
+        num_of_xl = divisor_for_roman_numeral(positive_int, xl)
         positive_int = remainder_number(positive_int, xl)
     else:
         num_of_xl = 0
 # Calculates the amount of XL's
     if positive_int >= x:
-        num_of_x = number_of_roman_numeral(positive_int, x)
+        num_of_x = divisor_for_roman_numeral(positive_int, x)
         positive_int = remainder_number(positive_int, x)
     else:
         num_of_x = 0
 # Calculates the amount of X's
     if positive_int >= ix:
-        num_of_ix = number_of_roman_numeral(positive_int, ix)
+        num_of_ix = divisor_for_roman_numeral(positive_int, ix)
         positive_int = remainder_number(positive_int, ix)
     else:
         num_of_ix = 0
 # Calculates the amount of IX's
     if positive_int >= v:
-        num_of_v = number_of_roman_numeral(positive_int, v)
+        num_of_v = divisor_for_roman_numeral(positive_int, v)
         positive_int = remainder_number(positive_int, v)
     else:
         num_of_v = 0
 # Calculates the amount of V's
     if positive_int >= iv:
-        num_of_iv = number_of_roman_numeral(positive_int, iv)
+        num_of_iv = divisor_for_roman_numeral(positive_int, iv)
         positive_int = remainder_number(positive_int, iv)
     else:
         num_of_iv = 0
 # Calculates the amount of IV's
     if positive_int >= i:
-        num_of_i = number_of_roman_numeral(positive_int, i)
+        num_of_i = divisor_for_roman_numeral(positive_int, i)
     else:
         num_of_i = 0
 # Calculates the amount of I's
@@ -134,6 +151,7 @@ def convert_to_roman_numeral(positive_int):
         + str("V" * int(num_of_v)) \
         + str("IV" * int(num_of_iv)) \
         + str("I" * int(num_of_i))
+# Concatenating the converted characters into a string for display
     return result
 
 
@@ -148,13 +166,9 @@ Return the parameter converted into roman numerals.
 
 
 def main():
+    """Executes the program"""
     print(convert_to_roman_numeral(1994))
     return
-
-
-"""
-Execute the program
-"""
 
 
 if __name__ == "__main__":
