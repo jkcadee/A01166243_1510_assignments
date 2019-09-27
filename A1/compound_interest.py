@@ -1,4 +1,5 @@
 def compound_interest(principal, annual_interest, interest_compound_yearly, account_growth):
+    """Takes four parameters and plugs them into a function of arithmetic operators"""
     result = principal * (1 + annual_interest / interest_compound_yearly) ** (interest_compound_yearly * account_growth)
     return float(result)
 
@@ -21,13 +22,10 @@ Return the result of the operation as a float.
 
 
 def main():
+    """Executes the program"""
     print(compound_interest(6.3, 0.1, 2, 9))
     return
 
-
-"""
-Execute the program
-"""
 
 if __name__ == "__main__":
     main()
