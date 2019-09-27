@@ -1,27 +1,28 @@
-def translation(input_string):
-    if input_string == "-":
-        result = "-"
-    elif input_string == "A" or input_string == "B" or input_string == "C":
-        result = "2"
-    elif input_string == "D" or input_string == "E" or input_string == "F":
-        result = "3"
-    elif input_string == "G" or input_string == "H" or input_string == "I":
-        result = "4"
-    elif input_string == "J" or input_string == "K" or input_string == "L":
-        result = "5"
-    elif input_string == "M" or input_string == "N" or input_string == "O":
-        result = "6"
-    elif input_string == "P" or input_string == "Q" or input_string == "R" or input_string == "S":
-        result = "7"
-    elif input_string == "T" or input_string == "U" or input_string == "V":
-        result = "8"
-    elif input_string == "W" or input_string == "X" or input_string == "Y" or input_string == "Z":
-        result = "9"
-    elif 0 <= int(input_string) <= 9:
-        result = input_string
+def translation(input_character):
+    """Converts each letter into their corresponding number"""
+    if input_character == "-":
+        converted_value = "-"
+    elif input_character == "A" or input_character == "B" or input_character == "C":
+        converted_value = "2"
+    elif input_character == "D" or input_character == "E" or input_character == "F":
+        converted_value = "3"
+    elif input_character == "G" or input_character == "H" or input_character == "I":
+        converted_value = "4"
+    elif input_character == "J" or input_character == "K" or input_character == "L":
+        converted_value = "5"
+    elif input_character == "M" or input_character == "N" or input_character == "O":
+        converted_value = "6"
+    elif input_character == "P" or input_character == "Q" or input_character == "R" or input_character == "S":
+        converted_value = "7"
+    elif input_character == "T" or input_character == "U" or input_character == "V":
+        converted_value = "8"
+    elif input_character == "W" or input_character == "X" or input_character == "Y" or input_character == "Z":
+        converted_value = "9"
+    elif 0 <= int(input_character) <= 9:
+        converted_value = input_character
     else:
-        result = 0
-    return result
+        converted_value = 0
+    return converted_value
 
 
 """
@@ -38,31 +39,33 @@ satisfied, it converts the character to it's corresponding digit or hyphen.
 
 
 def number_translator():
+    """Takes an inputted phone number and turns the characters into numbers"""
     phone_number = input("Input a ten-digit phone number (XXX-XXX-XXXX): ")
-    result = translation(phone_number[0])
-    result_1 = translation(phone_number[1])
-    result_2 = translation(phone_number[2])
-    result_3 = translation(phone_number[3])
-    result_4 = translation(phone_number[4])
-    result_5 = translation(phone_number[5])
-    result_6 = translation(phone_number[6])
-    result_7 = translation(phone_number[7])
-    result_8 = translation(phone_number[8])
-    result_9 = translation(phone_number[9])
-    result_10 = translation(phone_number[10])
-    result_11 = translation(phone_number[11])
-    translated_number = result \
-        + result_1 \
-        + result_2 \
-        + result_3 \
-        + result_4 \
-        + result_5 \
-        + result_6 \
-        + result_7 \
-        + result_8 \
-        + result_9 \
-        + result_10 \
-        + result_11
+    digit_1 = translation(phone_number[0])
+    digit_2 = translation(phone_number[1])
+    digit_3 = translation(phone_number[2])
+    hyphen_1 = translation(phone_number[3])
+    digit_4 = translation(phone_number[4])
+    digit_5 = translation(phone_number[5])
+    digit_6 = translation(phone_number[6])
+    hyphen_2 = translation(phone_number[7])
+    digit_7 = translation(phone_number[8])
+    digit_8 = translation(phone_number[9])
+    digit_9 = translation(phone_number[10])
+    digit_10 = translation(phone_number[11])
+# Each value here represents a digit (or hyphen) in the inputted phone number XXX-XXX-XXXX
+    translated_number = digit_1 \
+        + digit_2 \
+        + digit_3 \
+        + hyphen_1 \
+        + digit_4 \
+        + digit_5 \
+        + digit_6 \
+        + hyphen_2 \
+        + digit_7 \
+        + digit_8 \
+        + digit_9 \
+        + digit_10
     return translated_number
 
 
@@ -79,13 +82,9 @@ or hyphen. It is then concatenated and the result is returned.
 
 
 def main():
+    """Executes the program"""
     print(number_translator())
     return
-
-
-"""
-Execute the program
-"""
 
 
 if __name__ == "__main__":
