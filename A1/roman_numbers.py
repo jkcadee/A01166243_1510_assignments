@@ -1,7 +1,7 @@
 def divisor_for_roman_numeral(number_1, number_2):
     """Divides the first parameter by the second parameter"""
     num = number_1 / number_2
-    return num
+    return int(num)
 
 
 """
