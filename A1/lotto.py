@@ -26,4 +26,7 @@ def main():
 
 if __name__ == "__main__":
     main()
-
+"""
+For this function, automation is used in sorting the numbers in ascending order. Abstraction is also used in only 
+displaying the sorted list, not the original list.  
+"""

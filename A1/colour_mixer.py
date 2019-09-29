@@ -30,3 +30,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+"""
+I used pattern matching and abstraction for this function. The pattern matching was to match each of the two inputs to 
+their corresponding colour, seeing if the correct two colours were inputted. The abstraction in this function is that 
+only the result of what two strings you inputted is shown to you. No other information is displayed or printed. 
+"""

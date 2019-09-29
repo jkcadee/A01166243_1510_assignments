@@ -1,5 +1,13 @@
+import doctest
+
+
 def compound_interest(principal, annual_interest, interest_compound_yearly, account_growth):
-    """Takes four parameters and plugs them into a function of arithmetic operators"""
+    """Takes four parameters and plugs them into a function of arithmetic operators
+    >>> compound_interest(3, 0.2, 1, 5)
+    7.464959999999998
+    >>> compound_interest(2, 0.1, 6, 4)
+    2.9738292358927154
+    """
     result = principal * (1 + annual_interest / interest_compound_yearly) ** (interest_compound_yearly * account_growth)
     return float(result)
 
@@ -29,3 +37,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+    doctest.testmod()
+"""
+I used automation mainly to create this function, as you are just inputting for arguments into the function. The
+function is mainly made of arithmetic operators. Since the equation is so simple, it could be said that abstraction was
+used as well.
+"""

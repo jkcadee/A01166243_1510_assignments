@@ -1,5 +1,13 @@
+import doctest
+
+
 def translation(input_character):
-    """Converts each letter into their corresponding number"""
+    """Converts each letter into their corresponding number
+    >>> translation("A")
+    '2'
+    >>> translation("-")
+    '-'
+    """
     if input_character == "-":
         converted_value = "-"
     elif input_character == "A" or input_character == "B" or input_character == "C":
@@ -75,6 +83,8 @@ Return the phone number as a string of numbers from 0 to 9 and two hyphens.
 The string is passed through the translation function by each index, translating each one into it's corresponding digit
 or hyphen. It is then concatenated and the result is returned.
 
+
+
 :precondition: Phone number must only be in the format XXX-XXX-XXXX
 :postcondition: The phone number translated into only digits and hyphens in the format of XXX-XXX-XXXX
 :return: A string with only digits and hyphens in the format XXX-XXX-XXXX
@@ -89,3 +99,10 @@ def main():
 
 if __name__ == "__main__":
     main()
+    doctest.testmod()
+"""
+I used decomposition and recognizing patterns (repetition) to determine that the translation function could be put into 
+a different function. It repeats the same code multiple times until the inputted string is properly converted. I used 
+automation to make the number_translator function as the process of concatenating the string can be easily automated 
+once you have the converted numbers.
+"""

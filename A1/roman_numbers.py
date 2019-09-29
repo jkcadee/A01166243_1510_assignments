@@ -1,5 +1,13 @@
+import doctest
+
+
 def divisor_for_roman_numeral(number_1, number_2):
-    """Divides the first parameter by the second parameter"""
+    """Divides the first parameter by the second parameter
+    >>> divisor_for_roman_numeral(10, 5)
+    2
+    >>> divisor_for_roman_numeral(8, 2)
+    4
+    """
     num = number_1 / number_2
     return int(num)
 
@@ -16,7 +24,12 @@ Return the quotient of two numbers.
 
 
 def remainder_number(number_1, number_2):
-    """Takes the remainder from the quotient of the first parameter divided by the second"""
+    """Takes the remainder from the quotient of the first parameter divided by the second
+    >>> remainder_number(8, 5)
+    3
+    >>> remainder_number(11, 10)
+    1
+    """
     remainder = number_1 % number_2
     return remainder
 
@@ -60,7 +73,12 @@ i = 1
 
 def convert_to_roman_numeral(positive_int):
     """Converts the number in the parameter into a string with characters signifying equivalent values in roman
-        numerals"""
+        numerals
+        >>> convert_to_roman_numeral(2)
+        'II'
+        >>> convert_to_roman_numeral(90)
+        'XC'
+        """
     if positive_int >= m:
         num_of_m = divisor_for_roman_numeral(positive_int, m)
         positive_int = remainder_number(positive_int, m)
@@ -173,3 +191,10 @@ def main():
 
 if __name__ == "__main__":
     main()
+    doctest.testmod()
+"""
+For divisor_for_roman_numeral and remainder_number, I used decomposition, automation and pattern matching. The functions 
+could have been split up from the main one and make use of repetitive operations that gain input in a similar way. The
+convert_to_roman_numerals function uses automation with similar repetitive operations but also uses some pattern
+matching when determining which value gets converted into which corresponding roman numeral. 
+"""

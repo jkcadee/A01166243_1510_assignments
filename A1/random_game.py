@@ -51,3 +51,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+"""
+For this function mainly pattern matching and abstraction were used. The pattern matching was to display the correct 
+output depending on what the user inputted and what the random number generated. Abstraction was only displaying a
+message based on the input of the user and if they won, lost or tied.
+"""
