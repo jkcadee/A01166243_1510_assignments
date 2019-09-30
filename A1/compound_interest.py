@@ -31,7 +31,7 @@ Return the result of the operation as a float.
 
 def main():
     """Executes the program"""
-    print(compound_interest(6.3, 0.1, 2, 9))
+    print(round(compound_interest(6.3, 0.1, 2, 9), 2))
     return
 
 
