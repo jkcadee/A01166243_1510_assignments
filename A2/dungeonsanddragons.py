@@ -134,18 +134,24 @@ Return a string created by calling generate_syllable the amount of times syllabl
 :return: A string with however many syllables as specified by the parameter.
 """
 
+
+def select_race():
+    races = ['Dragonborn', 'Dwarf', 'Elf', 'Gnome', 'Half-Elf', 'Halfling', 'Half-Orc', 'Human', 'Tiefling']
+    return input(f'Select your race, Adventurer: {races} \n')
+
+
 def select_class():
     classes = ['Barbarian', 'Bard', 'Cleric',
                'Druid', 'Fighter', 'Monk',
                'Paladin', 'Ranger', 'Rogue',
                'Sorcerer', 'Warlock', 'Wizard']
-    return input(f'Select your class Adventurer: {classes}')
+    return input(f'Select your class, Adventurer: {classes} \n')
 
 
 def create_character(name_length):
     """Creates a list with a character's name and stats."""
     character_list = {'Name': generate_name(name_length),
-                      'Class': select_class(),
+                      'Class': select_class().lower(),
                       'Strength:': roll_die(3, 6),
                       'Dexterity:': roll_die(3, 6),
                       'Constitution:': roll_die(3, 6),
