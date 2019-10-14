@@ -30,41 +30,59 @@ Return the sum of a integer created from a set of random numbers based on the nu
 # print(roll_die(3, 6))
 
 
-def choose_inventory(inventory, selection):
+def choose_inventory():
     """Chooses an amount of items from a list depending on the number inputted.
-    >>> choose_inventory([], 0)
-    []
-    >>> choose_inventory(['Sword'], -1)
-    Hey! You can't have negative items!
-    []
-    >>> choose_inventory(['Sword'], 2)
-    You are over encumbered.
-    ['Sword']
-    >>> choose_inventory(['Sword'], 1)
-    ['Sword']
     """
-    if inventory == [] and selection == 0:
-        return []
-    elif selection < 0:
-        print("Hey! You can't have negative items!")
-        return []
-    elif selection > len(inventory):
-        print("You are over encumbered.")
-        over_encumbered_list = inventory.copy()
-        return sorted(over_encumbered_list)
-    elif selection == len(inventory):
-        equal_list = inventory.copy()
-        return sorted(equal_list)
-    else:
-        result = random.choices(inventory, k=selection)
-        return sorted(result)
+    store_list = ["1. Mango's Smashing Steel-Toed Boots",
+                  "2. The Swedish Sniper Longbow",
+                  "3. Crown of the Mews",
+                  "4. Engraved APEX: MMXV Cloak",
+                  "5. The Bottomless Hungrypouch",
+                  "6. Plup's Sensational Pulper",
+                  "7. Zain's Crimson Falchion",
+                  "8. Lightning's Summit Axe",
+                  "9. The Godslayer's Tome",
+                  "10. Cody's Convenient ice Blasting Dragon Wand"]
+    temp_stored_items = []
+
+    for x in range(0, len(store_list)):
+        print('Welcome to "The Script!", Here is our selection:')
+        for item in range(0, len(store_list)):
+            print(store_list[item])
+        pick_item = int(input('\n What would you like to buy? (-1 to exit) \n'))
+        if pick_item == -1:
+            break
+        elif pick_item == 0:
+            print('Hey, you can\'t choose zero items!')
+        elif pick_item > 0:
+            temp_item = store_list[pick_item - 1]
+            space_pos = temp_item.find(' ')
+            item_to_print = temp_item[space_pos + 1: len(temp_item)]
+            temp_stored_items.append(item_to_print)
+        else:
+            print(f'Hey you can only pick items from the store list!')
+    return temp_stored_items
+
+    # if inventory == [] and selection == 0:
+    #     return []
+    # elif selection < 0:
+    #     print("Hey! You can't have negative items!")
+    #     return []
+    # elif selection > len(inventory):
+    #     print("You are over encumbered.")
+    #     over_encumbered_list = inventory.copy()
+    #     return sorted(over_encumbered_list)
+    # elif selection == len(inventory):
+    #     equal_list = inventory.copy()
+    #     return sorted(equal_list)
+    # else:
+    #     result = random.choices(inventory, k=selection)
+    #     return sorted(result)
 
 
 """
 Return a list, with your chosen number of items as how many elements are in the list.
 
-:param inventory: A list with at least one element in it.
-:param selection: A positive integer.
 :precondition: List must hae at least one element in it, and integer must be positive.
 :postcondition: Create a list with the same amount of elements as what is specified in the parameter.
 :return: A list with the chosen amount of elements (determined by parameter) in it. 
@@ -203,7 +221,7 @@ def create_character(name_length):
     character_list = {'Name': generate_name(name_length),
                       'Race': choose_race,
                       'Class': choose_class,
-                      'HP': [max_health, max_health ],
+                      'HP': [max_health, max_health],
                       'Strength:': roll_die(3, 6),
                       'Dexterity:': roll_die(3, 6),
                       'Constitution:': roll_die(3, 6),
@@ -211,7 +229,7 @@ def create_character(name_length):
                       'Wisdom:': roll_die(3, 6),
                       'Charisma:': roll_die(3, 6),
                       'Experience': 0,
-                      'Inventory': []}
+                      'Inventory': choose_inventory()}
 
     return character_list
 
@@ -226,9 +244,6 @@ Return a list with the name of the character and their stats, inventory, race, c
 :postcondition: Create a list with the name, stats, inventory, race, class and health of the character.
 :return: A list with a name, stats, inventory, race, class and health.
 """
-
-
-# print(create_character(1))
 
 
 def print_character(character):
