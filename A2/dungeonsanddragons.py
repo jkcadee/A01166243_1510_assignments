@@ -216,7 +216,7 @@ Return a random integer which is the health value.
 
 
 def create_character(name_length):
-    """Creates a list with a character's name and stats, alongside other values."""
+    """Creates a dictionary with a character's name and stats, alongside other values."""
     choose_race = select_race().lower()
     choose_class = select_class().lower()
     max_health = get_health(choose_class)
@@ -235,18 +235,22 @@ def create_character(name_length):
 
     return character_list
 
+
 """
-Return a list with the name of the character and their stats, inventory, race, class and health
+Return a dictionary with the name of the character and their stats, inventory, race, class and health.
 
 :param name_length: A positive integer.
 :precondition: Parameter must be a positive integer over 0.
-:postcondition: Create a list with the name, stats, inventory, race, class and health of the character.
-:return: A list with a name, stats, inventory, race, class and health.
+:postcondition: Create a dictionary with the name, stats, inventory, race, class and health of the character.
+:return: A dictionary with a name, stats, inventory, race, class and health.
 """
+
+
 # print(create_character(3))
 
 
 def opp_character_generation():
+    """Creates a dictionary with a character's name and stats, alongside other values. The values are all randomized."""
     name = generate_name(roll_die(1, 3))
     opp_race = ['Dragonborn', 'Dwarf', 'Elf', 'Gnome', 'Half-Elf', 'Halfling', 'Half-Orc', 'Human', 'Tiefling']
     opp_class = ['Barbarian', 'Bard', 'Cleric',
@@ -271,10 +275,22 @@ def opp_character_generation():
     return opp_char_list
 
 
+"""
+Return a dictionary with the name of the character and their stats, inventory, race, class and health.
+
+Selecting race and class are randomized through a die roll. The name is generated from 1 - 3 syllables in length.
+
+:param name_length: A positive integer.
+:precondition: Parameter must be a positive integer over 0.
+:postcondition: Create a dictionary with the name, stats, inventory, race, class and health of the character.
+:return: A dictionary with a name, stats, inventory, race, class and health.
+"""
+
 # print(opp_character_generation())
 
 
 def combat_round(opponent_one, opponent_two):
+    """Simulate a combat round between two opponents."""
     opp_one_goes_first = 0
     opp_two_goes_first = 0
     roll_again = 1
@@ -283,11 +299,11 @@ def combat_round(opponent_one, opponent_two):
         opp_two_roll = roll_die(1, 20)
         if opp_one_roll > opp_two_roll:
             opp_one_goes_first += 1
-            print(f"{opponent_one['Name']} goes first!")
+            print(f"{opponent_one['Name']} rolls {opp_one_roll}, they go first!")
             roll_again = 0
         elif opp_one_roll < opp_two_roll:
             opp_two_goes_first += 1
-            print(f"{opponent_two['Name']} goes first!")
+            print(f"{opponent_two['Name']} rolls {opp_two_roll}, they go first!")
             roll_again = 0
     player = 0
     if opp_one_goes_first == 1:
@@ -296,7 +312,7 @@ def combat_round(opponent_one, opponent_two):
         player += 2
     opponent = {}
     this_player = {}
-    while opponent_one['HP'][1] > 0 and opponent_two['HP'][1] > 0:
+    for turn in range(0, 2):
         if player == 1:
             this_player = opponent_one
             opponent = opponent_two
@@ -311,6 +327,13 @@ def combat_round(opponent_one, opponent_two):
             print(f"{opponent['Name']} was hit! You ({this_player['Name']}) dealt {damage} damage to them. "
                   f"They have {opponent['HP'][1]} hit points left. You ({this_player['Name']}) have "
                   f"{this_player['HP'][1]} hit points left.")
+            if opponent_one['HP'][1] <= 0:
+                print(f"{opponent_one['Name']} has been killed in battle.")
+                break
+            else:
+                print(f"{opponent_two['Name']} has been killed in battle.")
+                break
+# The loop will stop if one character dies, you can't keep attacking if you die right?
         else:
             print(f"Miss! {opponent['Name']} has {opponent['HP'][1]} hit points left. You ({this_player['Name']}) have "
                   f"{this_player['HP'][1]} hit points left.")
@@ -318,11 +341,58 @@ def combat_round(opponent_one, opponent_two):
             player = 2
         elif player == 2:
             player = 1
-    if opponent_one['HP'][1] <= 0:
-        print(f"{opponent_one['Name']} has been killed in battle.")
-    else:
-        print(f"{opponent_two['Name']} has been killed in battle.")
 
+
+    # THIS CODE IS UNTIL A CHARACTER'S HEALTH IS <= 0
+    # while opponent_one['HP'][1] > 0 and opponent_two['HP'][1] > 0:
+    #     if player == 1:
+    #         this_player = opponent_one
+    #         opponent = opponent_two
+    #     elif player == 2:
+    #         this_player = opponent_two
+    #         opponent = opponent_one
+    #     turn_roll_dice = roll_die(1, 20)
+    #     print(f"You ({this_player['Name']}) rolled {turn_roll_dice}!")
+    #     if turn_roll_dice > opponent['Dexterity:']:
+    #         damage = get_health(this_player['Class'])
+    #         opponent['HP'][1] -= damage
+    #         print(f"{opponent['Name']} was hit! You ({this_player['Name']}) dealt {damage} damage to them. "
+    #               f"They have {opponent['HP'][1]} hit points left. You ({this_player['Name']}) have "
+    #               f"{this_player['HP'][1]} hit points left.")
+    #     else:
+    #         print(f"Miss! {opponent['Name']} has {opponent['HP'][1]} hit points left. You ({this_player['Name']}) have "
+    #               f"{this_player['HP'][1]} hit points left.")
+    #     if player == 1:
+    #         player = 2
+    #     elif player == 2:
+    #         player = 1
+    # if opponent_one['HP'][1] <= 0:
+    #     print(f"{opponent_one['Name']} has been killed in battle.")
+    # else:
+    #     print(f"{opponent_two['Name']} has been killed in battle.")
+
+
+"""
+Simulate one round of combat.
+
+The first part of the code rolls the dice for each character. It checks which roll is higher, then assigns that character
+as going first. If the rolls are the same, it keeps rolling until one of the numbers are higher.
+
+The second part determines which of the two characters (parameters) goes first.
+
+The third part is a loop that processes one turn for each character. The character that goes first rolls a dice to hit,
+if the roll is higher than the dexterity of the other character, they hit and deal damage based on the hit die of their
+class. If they roll a number lower than the dexterity of the other character, they miss and the turn switches to the
+next character. This repeats so the character that did not go first is attacking and the character that attacked is
+defending. 
+
+:param opponent_one: Must be a dictionary with the key values 'Name', 'HP', 'Class' and 'Dexterity'.
+:param opponent_two: Must be a dictionary with the key values 'Name', 'HP', 'Class' and 'Dexterity'.
+:precondition: Must be a dictionary and have the key values 'Name', 'HP', 'Class' and 'Dexterity'.
+:postcondition: Print the result of one combat round (two characters attacking, how much damage they take and if they
+die for not.
+:return: The results of combat, printed into a series of strings.  
+"""
 
 print(combat_round(opp_character_generation(), opp_character_generation()))
 
