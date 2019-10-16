@@ -235,10 +235,17 @@ def create_character(name_length):
 
     return character_list
 
+"""
+Return a list with the name of the character and their stats, inventory, race, class and health
 
+:param name_length: A positive integer.
+:precondition: Parameter must be a positive integer over 0.
+:postcondition: Create a list with the name, stats, inventory, race, class and health of the character.
+:return: A list with a name, stats, inventory, race, class and health.
+"""
 # print(create_character(3))
 
-def character_generation():
+def opp_character_generation():
     name = generate_name(roll_die(1, 3))
     opp_race = ['Dragonborn', 'Dwarf', 'Elf', 'Gnome', 'Half-Elf', 'Halfling', 'Half-Orc', 'Human', 'Tiefling']
     opp_class = ['Barbarian', 'Bard', 'Cleric',
@@ -263,24 +270,59 @@ def character_generation():
     return opp_char_list
 
 
-# print(character_generation())
+# print(opp_character_generation())
 
-
-# def roll_for_start():
 
 def combat_round(opponent_one, opponent_two):
-    opp_one_roll = 0
-    opp_two_roll = 0
+    opp_one_goes_first = 0
+    opp_two_goes_first = 0
+    roll_again = 1
+    while roll_again == 1:
+        opp_one_roll = roll_die(1, 20)
+        opp_two_roll = roll_die(1, 20)
+        if opp_one_roll > opp_two_roll:
+            opp_one_goes_first += 1
+            print(f"{opponent_one['Name']} goes first!")
+            roll_again = 0
+        elif opp_one_roll < opp_two_roll:
+            opp_two_goes_first += 1
+            print(f"{opponent_two['Name']} goes first!")
+            roll_again = 0
+    player = 0
+    if opp_one_goes_first == 1:
+        player += 1
+    elif opp_two_goes_first == 1:
+        player += 2
+    opponent = {}
+    this_player = {}
+    while opponent_one['HP'][1] > 0 and opponent_two['HP'][1] > 0:
+        if player == 1:
+            this_player = opponent_one
+            opponent = opponent_two
+        elif player == 2:
+            this_player = opponent_two
+            opponent = opponent_one
+        turn_roll_dice = roll_die(1, 20)
+        print(f"You ({this_player['Name']}) rolled {turn_roll_dice}!")
+        if turn_roll_dice > opponent['Dexterity:']:
+            damage = get_health(this_player['Class'])
+            opponent['HP'][1] -= damage
+            print(f"{opponent['Name']} was hit! You ({this_player['Name']}) dealt {damage} damage to them. "
+                  f"They have {opponent['HP'][1]} hit points left. You ({this_player['Name']}) have "
+                  f"{this_player['HP'][1]} hit points left.")
+        else:
+            print(f"Miss! {opponent['Name']} has {opponent['HP'][1]} hit points left. You ({this_player['Name']}) have "
+                  f"{this_player['HP'][1]} hit points left.")
+        if player == 1:
+            player = 2
+        elif player == 2:
+            player = 1
+    if opponent_one['HP'][1] <= 0:
+        print(f"{opponent_one['Name']} has been killed in battle.")
+    else:
+        print(f"{opponent_two['Name']} has been killed in battle.")
 
-
-"""
-Return a list with the name of the character and their stats, inventory, race, class and health
-
-:param name_length: A positive integer.
-:precondition: Parameter must be a positive integer over 0.
-:postcondition: Create a list with the name, stats, inventory, race, class and health of the character.
-:return: A list with a name, stats, inventory, race, class and health.
-"""
+print(combat_round(opp_character_generation(), opp_character_generation()))
 
 
 def print_character(character):
