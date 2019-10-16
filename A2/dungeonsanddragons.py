@@ -245,6 +245,7 @@ Return a list with the name of the character and their stats, inventory, race, c
 """
 # print(create_character(3))
 
+
 def opp_character_generation():
     name = generate_name(roll_die(1, 3))
     opp_race = ['Dragonborn', 'Dwarf', 'Elf', 'Gnome', 'Half-Elf', 'Halfling', 'Half-Orc', 'Human', 'Tiefling']
@@ -321,6 +322,7 @@ def combat_round(opponent_one, opponent_two):
         print(f"{opponent_one['Name']} has been killed in battle.")
     else:
         print(f"{opponent_two['Name']} has been killed in battle.")
+
 
 print(combat_round(opp_character_generation(), opp_character_generation()))
 
