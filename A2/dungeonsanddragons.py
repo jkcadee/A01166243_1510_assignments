@@ -163,8 +163,8 @@ def select_race():
 Return the input for selected race.
 
 :precondition: Input must be one of the nine races.
-:postcondition: An inputted string of one of the nine races.
-:return: A string of consisting of one of the nine races.
+:postcondition: An inputted integer corresponding to the index of one of the nine races.
+:return: An inputted integer corresponding to the index of consisting of one of the nine races.
 """
 
 
@@ -181,8 +181,8 @@ def select_class():
 Return the input for selected class.
 
 :precondition: Input must be one of the twelve classes.
-:postcondition: An inputted string of one the twelve classes.
-:return: A string consisting of one of the twelve classes.
+:postcondition: An inputted integer corresponding to the index of one the twelve classes.
+:return: An inputted integer corresponding to the index of one of the twelve classes.
 """
 
 
