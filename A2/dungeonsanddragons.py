@@ -155,7 +155,8 @@ Return a string created by calling generate_syllable the amount of times syllabl
 
 def select_race():
     races = ['Dragonborn', 'Dwarf', 'Elf', 'Gnome', 'Half-Elf', 'Halfling', 'Half-Orc', 'Human', 'Tiefling']
-    return input(f'Select your race, Adventurer: {races} \n')
+    selecting_race = int(input(f'Select your race, Adventurer: {races} \n (Input a number in the range 0 - 8) \n'))
+    return races[selecting_race]
 
 
 """
@@ -172,7 +173,8 @@ def select_class():
                'Druid', 'Fighter', 'Monk',
                'Paladin', 'Ranger', 'Rogue',
                'Sorcerer', 'Warlock', 'Wizard']
-    return input(f'Select your class, Adventurer: {classes} \n')
+    selecting_class = int(input(f'Select your class, Adventurer: {classes} \n (Input a number in the range 0 - 11 \n'))
+    return classes[selecting_class]
 
 
 """
@@ -234,7 +236,42 @@ def create_character(name_length):
     return character_list
 
 
-print(create_character(3))
+# print(create_character(3))
+
+def character_generation():
+    name = generate_name(roll_die(1, 3))
+    opp_race = ['Dragonborn', 'Dwarf', 'Elf', 'Gnome', 'Half-Elf', 'Halfling', 'Half-Orc', 'Human', 'Tiefling']
+    opp_class = ['Barbarian', 'Bard', 'Cleric',
+                 'Druid', 'Fighter', 'Monk',
+                 'Paladin', 'Ranger', 'Rogue',
+                 'Sorcerer', 'Warlock', 'Wizard']
+    opp_select_race = opp_race[(roll_die(1, 9) - 1)].lower()
+    opp_select_class = opp_class[(roll_die(1, 12) - 1)].lower()
+    opp_max_health = get_health(opp_select_class)
+    opp_char_list = {'Name': name,
+                     'Race': opp_select_race,
+                     'Class': opp_select_class,
+                     'HP': [opp_max_health, opp_max_health],
+                     'Strength:': roll_die(3, 6),
+                     'Dexterity:': roll_die(3, 6),
+                     'Constitution:': roll_die(3, 6),
+                     'Intelligence:': roll_die(3, 6),
+                     'Wisdom:': roll_die(3, 6),
+                     'Charisma:': roll_die(3, 6),
+                     'Experience': 0,
+                     'Inventory': []}
+    return opp_char_list
+
+
+# print(character_generation())
+
+
+# def roll_for_start():
+
+def combat_round(opponent_one, opponent_two):
+    opp_one_roll = 0
+    opp_two_roll = 0
+
 
 """
 Return a list with the name of the character and their stats, inventory, race, class and health
