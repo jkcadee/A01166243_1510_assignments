@@ -31,8 +31,7 @@ Return the sum of a integer created from a set of random numbers based on the nu
 
 
 def choose_inventory():
-    """Chooses an amount of items from a list depending on the number inputted.
-    """
+    """Chooses an amount of items from a list depending on the number inputted."""
     store_list = ["1. Mango's Smashing Steel-Toed Boots",
                   "2. The Swedish Sniper Longbow",
                   "3. Crown of the Mews",
@@ -42,15 +41,25 @@ def choose_inventory():
                   "7. Zain's Crimson Falchion",
                   "8. Lightning's Summit Axe",
                   "9. The Godslayer's Tome",
-                  "10. Cody's Convenient ice Blasting Dragon Wand"]
+                  "10. Cody's Convenient ice Blasting Dragon Wand",
+                  "11. Scale Armour of The Red-Sun",
+                  "12. Wizzy's Excellent Falcon-Grade Kneepads",
+                  "13. 20XX-Calibrated Shinegoggles",
+                  "14. The Inseparable 'Pew' and 'Fat' Daggers",
+                  "15. Johnny's Flaming Falcon-Grade Gloves",
+                  "16. Staff of Eternal Melee"]
     temp_stored_items = []
 
+    print('\nWelcome to "The Script!" Adventurer! \nHmm, you look new \'round these parts... \nTell you what, '
+          'your first selections here are on me!')
+    # Flavour text for the scenario.
     for x in range(0, len(store_list)):
-        print('Welcome to "The Script!", Here is our selection:')
+        print('\nHere\'s is our selection:')
         for item in range(0, len(store_list)):
             print(store_list[item])
-        pick_item = int(input('\n What would you like to buy? (-1 to exit) \n'))
+        pick_item = int(input('\nWhat would you like to buy? (-1 to exit) \n'))
         if pick_item == -1:
+            print('\nThank you for your service! Good luck out there Adventurer.')
             break
         elif pick_item == 0:
             print('Hey, you can\'t choose zero items!')
@@ -59,10 +68,12 @@ def choose_inventory():
             space_pos = temp_item.find(' ')
             item_to_print = temp_item[space_pos + 1: len(temp_item)]
             temp_stored_items.append(item_to_print)
+            print('\nThank you for your purchase!')
         else:
-            print(f'Hey you can only pick items from the store list!')
+            print('Hey you can only pick items from the store list!')
     return temp_stored_items
 
+    # OLD CODE
     # if inventory == [] and selection == 0:
     #     return []
     # elif selection < 0:
@@ -155,7 +166,7 @@ Return a string created by calling generate_syllable the amount of times syllabl
 
 def select_race():
     races = ['Dragonborn', 'Dwarf', 'Elf', 'Gnome', 'Half-Elf', 'Halfling', 'Half-Orc', 'Human', 'Tiefling']
-    selecting_race = int(input(f'Select your race, Adventurer: {races} \n (Input a number in the range 0 - 8) \n'))
+    selecting_race = int(input(f'Select your race, Traveler... {races} \n (Input a number in the range 0 - 8) \n'))
     return races[selecting_race]
 
 
@@ -173,7 +184,8 @@ def select_class():
                'Druid', 'Fighter', 'Monk',
                'Paladin', 'Ranger', 'Rogue',
                'Sorcerer', 'Warlock', 'Wizard']
-    selecting_class = int(input(f'Select your class, Adventurer: {classes} \n (Input a number in the range 0 - 11 \n'))
+    selecting_class = int(input(f'\nSelect your class, Traveler... {classes} \n (Input a number in the range 0 - 11) '
+                                f'\n'))
     return classes[selecting_class]
 
 
@@ -220,6 +232,11 @@ def create_character(name_length):
     choose_race = select_race().lower()
     choose_class = select_class().lower()
     max_health = get_health(choose_class)
+    print('\nYour body materializes in front of your eyes.\nYou fall out of the sky and hit the ground with a loud'
+          ' "THUD".\nYou open your eyes to see a yawning grassy meadow, with the bright blue sky above. \nA cool '
+          'breeze grazes your cheek as you scan your surroundings. \nYour eyes land on a shop emblazoned with a '
+          'familiar cross-circle sign hanging atop it\'s roof. \nYou enter the shop...')
+    # Flavour text for the scenario.
     character_list = {'Name': generate_name(name_length),
                       'Race': choose_race,
                       'Class': choose_class,
@@ -232,7 +249,9 @@ def create_character(name_length):
                       'Charisma:': roll_die(3, 6),
                       'Experience': 0,
                       'Inventory': choose_inventory()}
-
+    print('\nYou leave the shop with your haul. You set off north, towards the snowy mountains. Your character stats '
+          'are now:')
+    # Flavour text for the scenario.
     return character_list
 
 
@@ -286,11 +305,10 @@ Selecting race and class are randomized through a die roll. The name is generate
 :return: A dictionary with a name, stats, inventory, race, class and health.
 """
 
+
 # print(opp_character_generation())
-
-
-def combat_round(opponent_one, opponent_two):
-    """Simulate a combat round between two opponents."""
+def roll_for_advantage(opp_one, opp_two):
+    """Roll a die to see who goes first."""
     opp_one_goes_first = 0
     opp_two_goes_first = 0
     roll_again = 1
@@ -299,20 +317,47 @@ def combat_round(opponent_one, opponent_two):
         opp_two_roll = roll_die(1, 20)
         if opp_one_roll > opp_two_roll:
             opp_one_goes_first += 1
-            print(f"{opponent_one['Name']} rolls {opp_one_roll}, they go first!")
+            print(f"{opp_one['Name']} rolls {opp_one_roll}, they go first!")
             roll_again = 0
         elif opp_one_roll < opp_two_roll:
             opp_two_goes_first += 1
-            print(f"{opponent_two['Name']} rolls {opp_two_roll}, they go first!")
+            print(f"{opp_two['Name']} rolls {opp_two_roll}, they go first!")
             roll_again = 0
-    player = 0
     if opp_one_goes_first == 1:
-        player += 1
+        return 1
     elif opp_two_goes_first == 1:
+        return 2
+
+
+"""
+Return a value based on which of the two characters roll higher.
+
+The code checks which roll is higher, then assigns that character as going first. If the rolls are the same, it keeps 
+rolling until one of the numbers are higher.
+
+:param opp_one: Dictionary.
+:param opp_two: Dictionary.
+:preconditions: Both parameters must be dictionaries.
+:postcondition: Return a number indicating which character goes first.
+:return: A number that indicates which character's turn goes first.
+"""
+
+# roll_for_advantage(opp_character_generation(),opp_character_generation())
+
+def combat_round(opponent_one, opponent_two):
+    """Simulate a combat round between two opponents."""
+    who_rolled = roll_for_advantage(opponent_one, opponent_two)
+    player = 0
+    if who_rolled == 1:
+        player += 1
+    elif who_rolled == 2:
         player += 2
     opponent = {}
     this_player = {}
+    # To store a value, either 1 or 2, to determine which opponent goes first.
     for turn in range(0, 2):
+        # Loops until 2 turns have gone. Character going first attacks, and the other defends. Roles switch after 1
+        # attack.
         if player == 1:
             this_player = opponent_one
             opponent = opponent_two
@@ -328,12 +373,13 @@ def combat_round(opponent_one, opponent_two):
                   f"They have {opponent['HP'][1]} hit points left. You ({this_player['Name']}) have "
                   f"{this_player['HP'][1]} hit points left.")
             if opponent_one['HP'][1] <= 0:
-                print(f"{opponent_one['Name']} has been killed in battle.")
+                print(f"You ({opponent_one['Name']}) have been killed in battle. Your soul floats towards the heavens"
+                      f"...")
                 break
-            else:
-                print(f"{opponent_two['Name']} has been killed in battle.")
+            elif opponent_two['HP'][1] <= 0:
+                print(f"{opponent_two['Name']} has been killed in battle. You are victorious!")
                 break
-# The loop will stop if one character dies, you can't keep attacking if you die right?
+        # The loop will stop if one of the characters dies.
         else:
             print(f"Miss! {opponent['Name']} has {opponent['HP'][1]} hit points left. You ({this_player['Name']}) have "
                   f"{this_player['HP'][1]} hit points left.")
@@ -341,7 +387,6 @@ def combat_round(opponent_one, opponent_two):
             player = 2
         elif player == 2:
             player = 1
-
 
     # THIS CODE IS UNTIL A CHARACTER'S HEALTH IS <= 0
     # while opponent_one['HP'][1] > 0 and opponent_two['HP'][1] > 0:
@@ -375,12 +420,9 @@ def combat_round(opponent_one, opponent_two):
 """
 Simulate one round of combat.
 
-The first part of the code rolls the dice for each character. It checks which roll is higher, then assigns that character
-as going first. If the rolls are the same, it keeps rolling until one of the numbers are higher.
+The first part determines which of the two characters (parameters) goes first.
 
-The second part determines which of the two characters (parameters) goes first.
-
-The third part is a loop that processes one turn for each character. The character that goes first rolls a dice to hit,
+The second part is a loop that processes one turn for each character. The character that goes first rolls a dice to hit,
 if the roll is higher than the dexterity of the other character, they hit and deal damage based on the hit die of their
 class. If they roll a number lower than the dexterity of the other character, they miss and the turn switches to the
 next character. This repeats so the character that did not go first is attacking and the character that attacked is
@@ -394,19 +436,14 @@ die for not.
 :return: The results of combat, printed into a series of strings.  
 """
 
-print(combat_round(opp_character_generation(), opp_character_generation()))
+
+# print(combat_round(opp_character_generation(), opp_character_generation()))
 
 
 def print_character(character):
     """Prints character."""
-    print(character[0])
-    for value in range(1, len(character)):
-        if len(character[value]) > 0:
-            if value < len(character) - 1:
-                print(character[value][0], character[value][1])
-            else:
-                for x in range(0, len(character[value])):
-                    print(character[value][x])
+    for character_stat, character_stat_info in character.items():
+        print(character_stat, character_stat_info)
 
 
 """
@@ -414,11 +451,32 @@ Print a list with a name the length of the parameter and the stats.
 
 :param character: A positive integer over 0.
 :precondition: Parameter must be positive and over 0.
-:postcondition: Print created list from create_character.
-:return: Print a list with a name and stats.
+:postcondition: Print created dictionary from create_character.
+:return: Print a dictionary with a name, stats, race, class, exp, and inventory.
 """
 
-# print_character(2)
+
+# print_character(create_character(3))
+
+
+def main():
+    """Runs the functions created earlier in the file."""
+    print('Ah! A visitor... Welcome to Fountain of Dreams, Traveler... \nI am the Goddess of Melee... \nI will give '
+          'your spirit... corporeal form... \nStart by entering the number of syllables you want in your name...')
+    number_of_syllables = int(input())
+    print(f'You\'ve chosen {number_of_syllables} as the number of syllables in your name. Now...\n')
+    character_created = create_character(number_of_syllables)
+    print_character(character_created)
+    opp_character = opp_character_generation()
+    print('\nOn your way to Icicle Mountain, you encounter an enemy!\n')
+    print(f"It's {character_created['Name']} versus {opp_character['Name']}!\n")
+    print_character(character_created)
+    print('\n')
+    print_character(opp_character)
+    print('\n')
+    combat_round(character_created, opp_character)
+
 
 if __name__ == "__main__":
+    main()
     doctest.testmod()
