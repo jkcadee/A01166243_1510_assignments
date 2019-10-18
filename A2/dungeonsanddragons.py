@@ -262,9 +262,6 @@ Return a dictionary with the name of the character and their stats, inventory, r
 """
 
 
-# print(create_character(3))
-
-
 def opp_character_generation():
     """Creates a dictionary with a character's name and stats, alongside other values. The values are all randomized."""
     name = generate_name(roll_die(1, 3))
@@ -303,7 +300,6 @@ Selecting race and class are randomized through a die roll. The name is generate
 """
 
 
-# print(opp_character_generation())
 def roll_for_advantage(opp_one, opp_two):
     """Roll a die to see who goes first."""
     opp_one_goes_first = 0
@@ -340,19 +336,11 @@ rolling until one of the numbers are higher.
 """
 
 
-# roll_for_advantage(opp_character_generation(),opp_character_generation())
-
 def combat_round(opponent_one, opponent_two):
     """Simulate a combat round between two opponents."""
-    who_rolled = roll_for_advantage(opponent_one, opponent_two)
-    player = 0
-    if who_rolled == 1:
-        player += 1
-    elif who_rolled == 2:
-        player += 2
+    player = roll_for_advantage(opponent_one, opponent_two)
     opponent = {}
     this_player = {}
-    # To store a value, either 1 or 2, to determine which opponent goes first.
     for turn in range(0, 2):
         # Loops until 2 turns have gone. Character going first attacks, and the other defends. Roles switch after 1
         # attack.
@@ -433,9 +421,6 @@ defending.
 die for not.
 :return: The results of combat, printed into a series of strings.  
 """
-
-
-# print(combat_round(opp_character_generation(), opp_character_generation()))
 
 
 def print_character(character):
