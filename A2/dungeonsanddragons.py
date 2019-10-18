@@ -59,7 +59,7 @@ def choose_inventory():
             print('\nThank you for your service! Good luck out there, Adventurer.')
             break
         elif pick_item == 0:
-            print('Hey, you can\'t choose zero items!')
+            print('\nHey, you can\'t choose zero items!')
         elif pick_item > 0:
             temp_item = store_list[pick_item - 1]
             space_pos = temp_item.find(' ')
@@ -67,7 +67,7 @@ def choose_inventory():
             temp_stored_items.append(item_to_print)
             print('\nThank you for your purchase!')
         else:
-            print('Hey you can only pick items from the store list!')
+            print('\nHey you can only pick items from the store list!')
     return temp_stored_items
 
     # OLD CODE
