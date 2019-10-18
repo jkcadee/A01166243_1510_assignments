@@ -27,9 +27,6 @@ Return the sum of a integer created from a set of random numbers based on the nu
 """
 
 
-# print(roll_die(3, 6))
-
-
 def choose_inventory():
     """Chooses an amount of items from a list depending on the number inputted."""
     store_list = ["1. Mango's Smashing Steel-Toed Boots",
@@ -53,13 +50,13 @@ def choose_inventory():
     print('\nWelcome to "The Script!" Adventurer! \nHmm, you look new \'round these parts... \nTell you what, '
           'your first selections here are on me!')
     # Flavour text for the scenario.
-    for x in range(0, len(store_list)):
+    while True:
         print('\nHere\'s is our selection:')
         for item in range(0, len(store_list)):
             print(store_list[item])
         pick_item = int(input('\nWhat would you like to buy? (-1 to exit) \n'))
         if pick_item == -1:
-            print('\nThank you for your service! Good luck out there Adventurer.')
+            print('\nThank you for your service! Good luck out there, Adventurer.')
             break
         elif pick_item == 0:
             print('Hey, you can\'t choose zero items!')
@@ -99,9 +96,6 @@ Return a list, with your chosen number of items as how many elements are in the 
 :return: A list with the chosen amount of elements (determined by parameter) in it. 
 """
 
-
-# print(choose_inventory(['Sword', 'Dagger', 'Bow', 'Arrows', 'Leather Armour', 'Chainmail', 'Shield', 'Potions'], 4))
-# 'Sword', 'Dagger', 'Bow', 'Arrows', 'Leather Armour', 'Chainmail', 'Shield', 'Potions'
 
 def generate_consonant():
     """Generates a consonant."""
@@ -165,6 +159,7 @@ Return a string created by calling generate_syllable the amount of times syllabl
 
 
 def select_race():
+    """Returns an integer corresponding to the race chosen."""
     races = ['Dragonborn', 'Dwarf', 'Elf', 'Gnome', 'Half-Elf', 'Halfling', 'Half-Orc', 'Human', 'Tiefling']
     selecting_race = int(input(f'Select your race, Traveler... {races} \n (Input a number in the range 0 - 8) \n'))
     return races[selecting_race]
@@ -180,6 +175,7 @@ Return the input for selected race.
 
 
 def select_class():
+    """Returns an integer corresponding to the class chosen."""
     classes = ['Barbarian', 'Bard', 'Cleric',
                'Druid', 'Fighter', 'Monk',
                'Paladin', 'Ranger', 'Rogue',
@@ -199,6 +195,7 @@ Return the input for selected class.
 
 
 def get_health(chosen_class):
+    """Returns an integer randomly generated for health."""
     if chosen_class == 'barbarian':
         health = roll_die(1, 12)
         return health
@@ -341,6 +338,7 @@ rolling until one of the numbers are higher.
 :postcondition: Return a number indicating which character goes first.
 :return: A number that indicates which character's turn goes first.
 """
+
 
 # roll_for_advantage(opp_character_generation(),opp_character_generation())
 
