@@ -39,12 +39,15 @@ def choose_inventory():
                   "8. Lightning's Summit Axe",
                   "9. The Godslayer's Tome",
                   "10. Cody's Convenient ice Blasting Dragon Wand",
-                  "11. Scale Armour of The Red-Sun",
+                  "11. Scale Armour of The Red-Dinosaur",
                   "12. Wizzy's Excellent Falcon-Grade Kneepads",
                   "13. 20XX-Calibrated Shinegoggles",
                   "14. The Inseparable 'Pew' and 'Fat' Daggers",
                   "15. Johnny's Flaming Falcon-Grade Gloves",
-                  "16. Staff of Eternal Melee"]
+                  "16. Staff of Eternal Melee",
+                  "17. Wavedashing Amulet",
+                  "18. Scar's Unbreakable Wall",
+                  "19. Toph's Barbed Mace"]
     temp_stored_items = []
 
     print('\nWelcome to "The Script!" Adventurer! \nHmm, you look new \'round these parts... \nTell you what, '
@@ -168,7 +171,7 @@ def select_race():
 """
 Return the input for selected race.
 
-:precondition: Input must be one of the nine races.
+:precondition: Input must be one of the nine races (0 - 8).
 :postcondition: An inputted integer corresponding to the index of one of the nine races.
 :return: An inputted integer corresponding to the index of consisting of one of the nine races.
 """
@@ -188,7 +191,7 @@ def select_class():
 """
 Return the input for selected class.
 
-:precondition: Input must be one of the twelve classes.
+:precondition: Input must be one of the twelve classes (0 - 11).
 :postcondition: An inputted integer corresponding to the index of one the twelve classes.
 :return: An inputted integer corresponding to the index of one of the twelve classes.
 """
@@ -264,7 +267,6 @@ Return a dictionary with the name of the character and their stats, inventory, r
 
 def opp_character_generation():
     """Creates a dictionary with a character's name and stats, alongside other values. The values are all randomized."""
-    name = generate_name(roll_die(1, 3))
     opp_race = ['Dragonborn', 'Dwarf', 'Elf', 'Gnome', 'Half-Elf', 'Halfling', 'Half-Orc', 'Human', 'Tiefling']
     opp_class = ['Barbarian', 'Bard', 'Cleric',
                  'Druid', 'Fighter', 'Monk',
@@ -273,7 +275,7 @@ def opp_character_generation():
     opp_select_race = opp_race[(roll_die(1, 9) - 1)].lower()
     opp_select_class = opp_class[(roll_die(1, 12) - 1)].lower()
     opp_max_health = get_health(opp_select_class)
-    opp_char_list = {'Name': name,
+    opp_char_list = {'Name': generate_name(roll_die(1, 3)),
                      'Race': opp_select_race,
                      'Class': opp_select_class,
                      'HP': [opp_max_health, opp_max_health],
@@ -426,7 +428,15 @@ die for not.
 def print_character(character):
     """Prints character."""
     for character_stat, character_stat_info in character.items():
-        print(character_stat, character_stat_info)
+        if isinstance(character_stat_info, list):
+            statistics = str(character_stat) + ': '
+            for index in range(0, len(character_stat_info)):
+                statistics += str(character_stat_info[index])
+                if index < len(character_stat_info) - 1:
+                    statistics += ', '
+            print(statistics)
+        else:
+            print(character_stat, character_stat_info)
 
 
 """
