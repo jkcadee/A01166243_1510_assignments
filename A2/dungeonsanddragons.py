@@ -383,6 +383,8 @@ die for not.
 
 def print_character(character):
     """Prints character.
+    >>> print_character({'Name' : 'Heyhay'})
+    Name Heyhay
     >>> print_character({'Dexterity:': 13})
     Dexterity: 13
     >>> print_character({'HP': [4, 4]})
