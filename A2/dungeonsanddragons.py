@@ -73,23 +73,6 @@ def choose_inventory():
             print('\nHey you can only pick items from the store list!')
     return temp_stored_items
 
-    # OLD CODE
-    # if inventory == [] and selection == 0:
-    #     return []
-    # elif selection < 0:
-    #     print("Hey! You can't have negative items!")
-    #     return []
-    # elif selection > len(inventory):
-    #     print("You are over encumbered.")
-    #     over_encumbered_list = inventory.copy()
-    #     return sorted(over_encumbered_list)
-    # elif selection == len(inventory):
-    #     equal_list = inventory.copy()
-    #     return sorted(equal_list)
-    # else:
-    #     result = random.choices(inventory, k=selection)
-    #     return sorted(result)
-
 
 """
 Return a list, with your chosen number of items as how many elements are in the list.
@@ -353,6 +336,7 @@ def combat_round(opponent_one, opponent_two):
             this_player = opponent_two
             opponent = opponent_one
         turn_roll_dice = roll_die(1, 20)
+        # rolling the dice for the character that goes first.
         print(f"You ({this_player['Name']}) rolled {turn_roll_dice}!")
         if turn_roll_dice > opponent['Dexterity:']:
             damage = get_health(this_player['Class'])
@@ -376,34 +360,6 @@ def combat_round(opponent_one, opponent_two):
         elif player == 2:
             player = 1
 
-    # THIS CODE IS UNTIL A CHARACTER'S HEALTH IS <= 0
-    # while opponent_one['HP'][1] > 0 and opponent_two['HP'][1] > 0:
-    #     if player == 1:
-    #         this_player = opponent_one
-    #         opponent = opponent_two
-    #     elif player == 2:
-    #         this_player = opponent_two
-    #         opponent = opponent_one
-    #     turn_roll_dice = roll_die(1, 20)
-    #     print(f"You ({this_player['Name']}) rolled {turn_roll_dice}!")
-    #     if turn_roll_dice > opponent['Dexterity:']:
-    #         damage = get_health(this_player['Class'])
-    #         opponent['HP'][1] -= damage
-    #         print(f"{opponent['Name']} was hit! You ({this_player['Name']}) dealt {damage} damage to them. "
-    #               f"They have {opponent['HP'][1]} hit points left. You ({this_player['Name']}) have "
-    #               f"{this_player['HP'][1]} hit points left.")
-    #     else:
-    #         print(f"Miss! {opponent['Name']} has {opponent['HP'][1]} hit points left. You ({this_player['Name']}) have "
-    #               f"{this_player['HP'][1]} hit points left.")
-    #     if player == 1:
-    #         player = 2
-    #     elif player == 2:
-    #         player = 1
-    # if opponent_one['HP'][1] <= 0:
-    #     print(f"{opponent_one['Name']} has been killed in battle.")
-    # else:
-    #     print(f"{opponent_two['Name']} has been killed in battle.")
-
 
 """
 Simulate one round of combat.
@@ -426,7 +382,14 @@ die for not.
 
 
 def print_character(character):
-    """Prints character."""
+    """Prints character.
+    >>> print_character({'Dexterity:': 13})
+    Dexterity: 13
+    >>> print_character({'HP': [4, 4]})
+    HP: 4, 4
+    >>> print_character({'Inventory': ["The Godslayer's Tome", "Scar's Unbreakable Wall"]})
+    Inventory: The Godslayer's Tome, Scar's Unbreakable Wall
+    """
     for character_stat, character_stat_info in character.items():
         if isinstance(character_stat_info, list):
             statistics = str(character_stat) + ': '
