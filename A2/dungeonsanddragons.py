@@ -155,7 +155,7 @@ def generate_name(syllables):
 Return a string created by calling generate_syllable the amount of times syllables is called.
 
 :param syllables: A positive integer.
-:precondition: Syllables must be a positive integer.
+:precondition: Syllables must be a positive integer and over zero.
 :postcondition: Creating a string with however many syllables as specified by the parameter.  
 :return: A string with however many syllables as specified by the parameter.
 """
