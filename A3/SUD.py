@@ -20,7 +20,6 @@ def create_board(row_size, col_size):
         for column in range(col_size):
             sub_list.append(space)
         playing_board.append(sub_list)
-
     return playing_board
 
 
@@ -31,11 +30,11 @@ def create_board(row_size, col_size):
 
 def display_board(play_board):
     for index in range(len(play_board)):
-        for j in range(len(play_board[index])):
-            if j == len(play_board[index]) - 1:
-                print(play_board[index][j])
+        for index_two in range(len(play_board[index])):
+            if index_two == len(play_board[index]) - 1:
+                print(play_board[index][index_two])
             else:
-                print(play_board[index][j], end=" ")
+                print(play_board[index][index_two], end=" ")
 
 
 display_board(create_board(5, 5))
