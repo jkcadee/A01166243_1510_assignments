@@ -1,6 +1,7 @@
 import random
 from A01166243_1510_assignments.A3.SUD import roll_die
 
+
 def generate_consonant():
     """Generates a consonant."""
     consonant = "BCDFGHJKLMNPQRSTVWXYZ"
@@ -32,5 +33,3 @@ def opp_character():
                      'Style Level: ': [10, 10],  # SL list: 1st value is max SL, second is current SL
                      'Inventory: ': []}
     return the_character
-
-print(opp_character())
