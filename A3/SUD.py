@@ -34,14 +34,46 @@ def user_choice():
     return move.capitalize()
 
 
-def player_movement(character_coordinates: list, maximum_limit: int, current_position: int, direction: str) -> list:
-    if direction in ('N', 'W'):
-        if character_coordinates[current_position] != 0:
-            character_coordinates[current_position] -= 1
-    elif direction in ('S', 'E'):
-        if character_coordinates[current_position] != maximum_limit - 1:
-            character_coordinates[current_position] += 1
-    return character_coordinates
+def player_movement(character_coordinates: dict, maximum_limit: int, direction: str) -> dict:  # FIX THIS
+    current_position = character_coordinates['Position:']
+    if direction in 'N':
+        if current_position[0] != 0:
+            current_position[0] -= 1
+    elif direction in 'S':
+        if current_position[0] != maximum_limit - 1:
+            current_position[0] += 1
+    elif direction in 'W':
+        if current_position[1] != 0:
+            current_position[1] -= 1
+    elif direction in 'E':
+        if current_position[1] != maximum_limit - 1:
+            current_position[1] += 1
+    return current_position
+
+
+def validate_move(maximum: int, character: dict, direction: str) -> dict:
+    """
+    Return a list with the modified character list from move_character.
+
+    When direction is N or S, 1 is added or subtracted from the y-coord. When direction is E or W, 1 is added or
+    subtracted from the x-coord,
+
+    :param maximum: An int.
+    :precondition: Must be an integer.
+    :param character: A list.
+    :precondition: Must be a list.
+    :param direction: A string.
+    :precondition: Must be a string.
+    :postcondition: Returns the changed character list from move_character depending on which direction was selected.
+    :return: A list modified by move_character depending on the direction selected.
+
+
+    """
+    if direction in ('N', 'S'):
+        character = player_movement(character, maximum, direction)
+    elif direction in ('E', 'W'):
+        character = player_movement(character, maximum, direction)
+    return character
 
 
 def display_board(play_board: list, character: dict):
@@ -62,7 +94,13 @@ def display_board(play_board: list, character: dict):
 
 
 def game():
-    display_board(create_board(5, 5), player_character(roll_die(1, 3), roll_die(1, 3)))
+    character = player_character(roll_die(1, 3), roll_die(1, 3))
+    print(character['Position:'])
+    board = create_board(5, 5)
+    while True:
+        display_board(board, character)
+        character['Position:'] = validate_move(5, character, user_choice())
+        print(character['Position:'])
 
 
 def main():
