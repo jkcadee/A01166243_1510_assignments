@@ -103,11 +103,11 @@ def roll_for_advantage(opp_one, opp_two):
         opp_two_roll = roll_die(1, 20)
         if opp_one_roll > opp_two_roll:
             opp_one_goes_first = True
-            print(f"{opp_one['Name']} rolls {opp_one_roll}, they go first!")
+            print(f"{opp_one['Name:']} rolls {opp_one_roll}, they go first!")
             roll_again = False
         elif opp_one_roll < opp_two_roll:
-            opp_two_goes_first += True
-            print(f"{opp_two['Name']} rolls {opp_two_roll}, they go first!")
+            opp_two_goes_first = True
+            print(f"{opp_two['Name:']} rolls {opp_two_roll}, they go first!")
             roll_again = False
     if opp_one_goes_first:
         return 1
@@ -116,31 +116,52 @@ def roll_for_advantage(opp_one, opp_two):
 
 
 def combat(opponent_one, opponent_two):
-    player = roll_for_advantage(opponent_one, opponent_two)
+    turn_1_player = roll_for_advantage(opponent_one, opponent_two)
     opponent = {}
-    this_player = {}
-    if player == 1:
-        this_player = opponent_one
+    player = {}
+    if turn_1_player == 1:
+        player = opponent_one
         opponent = opponent_two
-    elif player == 2:
-        this_player = opponent_two
+    elif turn_1_player == 2:
+        player = opponent_two
         opponent = opponent_one
-    turn_roll_dice = roll_die(1, 20)
-    # combat
-    if player == 1:
-        player = 2
-    elif player == 2:
-        player = 1
+    roll_hit = roll_die(1, 20)
+    combat_round(roll_hit, opponent, player,)
+    switch_turns(turn_1_player)
+
+
+def combat_round(roll_to_hit: int, opponent: dict, player: dict):
+    still_alive = True
+    while still_alive:
+        if roll_to_hit > 10:
+            opponent['Style Level:'][1] -= roll_die(1, 6)
+            print(opponent['Style Level:'])
+            if player['Style Level:'][1] <= 0:
+                print(f"You ({opponent['Name:']}) have been killed in battle.")
+                still_alive = False
+            elif opponent['Style Level:'][1] <= 0:
+                print(f"{opponent['Name:']} has been killed in battle. You are victorious!")
+                still_alive = False
+        else:
+            print(f"Miss! {opponent['Name:']} has {opponent['Style Level:'][1]} hit points left. You "
+                  f"({player['Name:']}) have {player['Style Level:'][1]} hit points left.")
+
+
+def switch_turns(turn_1_player: int) -> int:
+    if turn_1_player == 1:
+        return 2
+    elif turn_1_player == 2:
+        return 1
 
 
 def game():
     character = player_character(roll_die(1, 3), roll_die(1, 3))
-    print(character['Position:'])
-    board = create_board(5, 5)
-    while True:
-        display_board(board, character)
-        character['Position:'] = validate_move(5, character, user_choice())
-
+    foe = opp_character()
+    # board = create_board(5, 5)
+    # while True:
+    #     display_board(board, character)
+    #     character['Position:'] = validate_move(5, character, user_choice())
+    combat(character, foe)
 
 def main():
     game()
