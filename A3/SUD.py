@@ -93,6 +93,46 @@ def display_board(play_board: list, character: dict):
                     print('x', end=" ")
 
 
+def roll_for_advantage(opp_one, opp_two):
+    """Roll a die to see who goes first."""
+    opp_one_goes_first = False
+    opp_two_goes_first = False
+    roll_again = True
+    while roll_again:
+        opp_one_roll = roll_die(1, 20)
+        opp_two_roll = roll_die(1, 20)
+        if opp_one_roll > opp_two_roll:
+            opp_one_goes_first = True
+            print(f"{opp_one['Name']} rolls {opp_one_roll}, they go first!")
+            roll_again = False
+        elif opp_one_roll < opp_two_roll:
+            opp_two_goes_first += True
+            print(f"{opp_two['Name']} rolls {opp_two_roll}, they go first!")
+            roll_again = False
+    if opp_one_goes_first:
+        return 1
+    elif opp_two_goes_first:
+        return 2
+
+
+def combat(opponent_one, opponent_two):
+    player = roll_for_advantage(opponent_one, opponent_two)
+    opponent = {}
+    this_player = {}
+    if player == 1:
+        this_player = opponent_one
+        opponent = opponent_two
+    elif player == 2:
+        this_player = opponent_two
+        opponent = opponent_one
+    turn_roll_dice = roll_die(1, 20)
+    # combat
+    if player == 1:
+        player = 2
+    elif player == 2:
+        player = 1
+
+
 def game():
     character = player_character(roll_die(1, 3), roll_die(1, 3))
     print(character['Position:'])
@@ -100,7 +140,6 @@ def game():
     while True:
         display_board(board, character)
         character['Position:'] = validate_move(5, character, user_choice())
-        print(character['Position:'])
 
 
 def main():
