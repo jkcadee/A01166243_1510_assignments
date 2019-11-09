@@ -125,26 +125,22 @@ def combat(opponent_one, opponent_two):
     elif turn_1_player == 2:
         player = opponent_two
         opponent = opponent_one
-    roll_hit = roll_die(1, 20)
-    combat_round(roll_hit, opponent, player,)
-    switch_turns(turn_1_player)
+    dead = False
+    while not dead:
+        roll_hit = roll_die(1, 20)
+        combat_round(roll_hit, opponent, player)
+        turn_1_player = switch_turns(turn_1_player)  # FIX THIS
+        if check_if_dead(opponent, player):
+            dead = True
 
 
 def combat_round(roll_to_hit: int, opponent: dict, player: dict):
-    still_alive = True
-    while still_alive:
-        if roll_to_hit > 10:
-            opponent['Style Level:'][1] -= roll_die(1, 6)
-            print(opponent['Style Level:'])
-            if player['Style Level:'][1] <= 0:
-                print(f"You ({opponent['Name:']}) have been killed in battle.")
-                still_alive = False
-            elif opponent['Style Level:'][1] <= 0:
-                print(f"{opponent['Name:']} has been killed in battle. You are victorious!")
-                still_alive = False
-        else:
-            print(f"Miss! {opponent['Name:']} has {opponent['Style Level:'][1]} hit points left. You "
-                  f"({player['Name:']}) have {player['Style Level:'][1]} hit points left.")
+    if roll_to_hit > 10:
+        opponent['Style Level:'][1] -= roll_die(1, 6)
+        print(opponent['Style Level:'])
+    else:
+        print(f"Miss! {opponent['Name:']} has {opponent['Style Level:'][1]} hit points left. You "
+              f"({player['Name:']}) have {player['Style Level:'][1]} hit points left.")
 
 
 def switch_turns(turn_1_player: int) -> int:
@@ -152,6 +148,15 @@ def switch_turns(turn_1_player: int) -> int:
         return 2
     elif turn_1_player == 2:
         return 1
+
+
+def check_if_dead(opponent: dict, player: dict) -> bool:
+    if player['Style Level:'][1] <= 0:
+        print(f"You ({opponent['Name:']}) have been killed in battle.")
+        return True
+    elif opponent['Style Level:'][1] <= 0:
+        print(f"{opponent['Name:']} has been killed in battle. You are victorious!")
+        return True
 
 
 def game():
@@ -162,6 +167,7 @@ def game():
     #     display_board(board, character)
     #     character['Position:'] = validate_move(5, character, user_choice())
     combat(character, foe)
+
 
 def main():
     game()
