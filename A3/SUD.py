@@ -159,6 +159,50 @@ def check_if_dead(opponent: dict, player: dict) -> bool:
         return True
 
 
+def combat_initiation(player: dict, foe: dict):
+    user_input = input('Stay and fight or leave? (Press F to fight and L to leave)\n').capitalize()
+    flee = False
+    while not flee:  # FIX THIS
+        if user_input == 'F':
+            combat(player, foe)
+        elif user_input == 'L':
+            flee_chance_damage = roll_die(1, 10)
+            if flee_chance_damage == 1:
+                damage = roll_die(1, 4)
+                player['Style Level:'][1] -= damage
+                print(f'You ({player["Name:"]}) got {damage} points off your style!')
+                flee = True
+            else:
+                print(f'You ({player["Name:"]}) got away successfully!')
+                flee = True
+
+
+# def move_heal():
+# def move_enemy_chance():
+
+def money_generator():
+    luck = roll_die(1, 5)
+    if luck == 1:
+        money_received = random.randint(1, 2) * 100
+        return money_received
+    elif luck == 2:
+        money_received = random.randint(2, 4) * 100
+        return money_received
+    elif luck == 3:
+        money_received = random.randint(4, 6) * 100
+        return money_received
+    elif luck == 4:
+        money_received = random.randint(6, 8) * 100
+        return money_received
+    elif luck == 5:
+        money_received = random.randint(8, 10) * 100
+        return money_received
+
+
+# def shopping():
+
+
+
 def game():
     character = player_character(roll_die(1, 3), roll_die(1, 3))
     foe = opp_character()
@@ -166,7 +210,8 @@ def game():
     # while True:
     #     display_board(board, character)
     #     character['Position:'] = validate_move(5, character, user_choice())
-    combat(character, foe)
+    combat_initiation(character, foe)
+    # print(f'You got ${money_generator()}!')
 
 
 def main():
