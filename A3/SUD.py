@@ -1,7 +1,7 @@
 import random
 from A01166243_1510_assignments.A3.character import *
 from A01166243_1510_assignments.A3.monster import *
-
+from A01166243_1510_assignments.A3.constants import *
 
 def roll_die(rolls, sides):
     number = 0
@@ -199,19 +199,49 @@ def money_generator():
         return money_received
 
 
-# def shopping():
+def shopping(store_list: list, player: dict, store_prices: list):
+    temp_stored_items = []
+    current_money = player['Cash:']
+    while True:
+        print('\nHere\'s is our selection:')
+        print(f'You have ${current_money} in your wallet.')
+        for item in range(0, len(store_list)):
+            print(store_list[item])
+        pick_item = int(input('\nWhat would you like to buy? (-1 to exit) \n'))
+        if pick_item == -1:
+            print('\nThank you for your purchase(s).')
+            break
+        elif pick_item > 0:
+            check_if_can_buy(STORE_PRICES, player, pick_item, STORE_LIST, temp_stored_items)
+            if store_prices[pick_item - 1] > current_money:
+                print(f'This item costs ${store_prices[pick_item - 1]}! You only have ${current_money}.')
+            if store_prices[pick_item - 1] <= current_money:
+                current_money -= store_prices[pick_item - 1]
+        else:
+            print('\nThat\'s not a valid option!')
+    return temp_stored_items
 
+
+def check_if_can_buy(store_prices: list, player: dict, pick_item: int, store_list: list, temp_stored_items: list):
+    current_money = player['Cash:']
+    if store_prices[pick_item - 1] <= current_money:
+        temp_item = store_list[pick_item - 1]
+        space_pos = temp_item.find(' ')
+        item_to_print = temp_item[space_pos + 1: len(temp_item)]
+        temp_stored_items.append(item_to_print)
+        print('\nThank you for your purchase!')
 
 
 def game():
     character = player_character(roll_die(1, 3), roll_die(1, 3))
-    foe = opp_character()
+    # foe = opp_character()
     # board = create_board(5, 5)
     # while True:
     #     display_board(board, character)
     #     character['Position:'] = validate_move(5, character, user_choice())
-    combat_initiation(character, foe)
+    # combat_initiation(character, foe)
     # print(f'You got ${money_generator()}!')
+    shopping(STORE_LIST, character, STORE_PRICES)
 
 
 def main():
