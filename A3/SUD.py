@@ -18,7 +18,7 @@ def create_board(row_size, col_size):
     for row in range(row_size):
         sub_list = []
         for column in range(col_size):
-            sub_list.append((column, row))
+            sub_list.append((row, column))
         playing_board.append(sub_list)
     return playing_board
 
@@ -121,20 +121,18 @@ def combat(opponent_one, opponent_two):
     opponent = {}
     player = {}
     cash = money_generator()
-    if turn_1_player == 1:
-        player = opponent_one
-        opponent = opponent_two
-    elif turn_1_player == 2:
-        player = opponent_two
-        opponent = opponent_one
     dead = False
     while not dead:
+        if turn_1_player == 1:
+            player = opponent_one
+            opponent = opponent_two
+        elif turn_1_player == 2:
+            player = opponent_two
+            opponent = opponent_one
         roll_hit = roll_die(1, 20)
         combat_round(roll_hit, opponent, player)
         turn_1_player = switch_turns(turn_1_player)  # FIX THIS
-        if check_if_dead(opponent, player):
-            player['Cash:'] += cash
-            print(f"You ({player['Name:']}) received ${cash}!")
+        if check_if_dead(opponent, player, cash):
             dead = True
 
 
@@ -154,13 +152,16 @@ def switch_turns(turn_1_player: int) -> int:
         return 1
 
 
-def check_if_dead(opponent: dict, player: dict) -> bool:
+def check_if_dead(opponent: dict, player: dict, cash: int) -> bool:
     if player['Style Level:'][1] <= 0:
         print(f"Your ({opponent['Name:']}) style is been demolished. Back to the drawing board.")
         return True
     elif opponent['Style Level:'][1] <= 0:
         print(f"{opponent['Name:']}'s style has been dismantled. You're free to keep searching for your fit.")
+        player['Cash:'] += cash
+        print(f"You ({player['Name:']}) received ${cash}!")
         return True
+    return False
 
 
 def combat_initiation(player: dict, foe: dict):
@@ -170,16 +171,16 @@ def combat_initiation(player: dict, foe: dict):
     while not flee:  # FIX THIS
         if user_input == 'F':
             combat(player, foe)
+            flee = True
         elif user_input == 'L':
+            flee = True
             flee_chance_damage = roll_die(1, 10)
             if flee_chance_damage == 1:
                 damage = roll_die(1, 4)
                 player['Style Level:'][1] -= damage
                 print(f'You ({player["Name:"]}) got {damage} points off your style!')
-                flee = True
             else:
                 print(f'You ({player["Name:"]}) got away successfully!')
-                flee = True
 
 
 def move_heal(player: dict):
@@ -189,10 +190,21 @@ def move_heal(player: dict):
         player['Style Level:'][1] = player['Style Level:'][0]
 
 
-def move_enemy_chance(player: dict, foe: dict):
-    chance_enemy_spawn = roll_die(1, 4)
-    if chance_enemy_spawn == 1:
+def move_event_chance(player: dict, foe: dict, event_spawner: int, store_list: list, store_prices: list) -> bool:
+    if event_spawner == 1:
         combat_initiation(player, foe)
+        return is_player_dead(player)
+    elif event_spawner == 2:
+        shopping(store_list, player, store_prices)
+    else:
+        move_heal(player)
+    return False
+
+
+def is_player_dead(player):
+    if player['Style Level:'][1] <= 0:
+        return True
+    return False
 
 
 def money_generator():
@@ -251,11 +263,16 @@ def game():
     character = player_character(roll_die(1, 3), roll_die(1, 3))
     foe = opp_character()
     board = create_board(5, 5)
+    print(board)
     while True:
-        direction = user_choice()
         display_board(board, character)
+        print(character['Position:'])
+        direction = user_choice()
         character['Position:'] = validate_move(5, character, direction)
-
+        event = roll_die(1, 4)
+        stop = move_event_chance(character, foe, event, STORE_LIST, STORE_PRICES)
+        if stop:
+            break
     # combat_initiation(character, foe)
     # print(f'You got ${money_generator()}!')
     # shopping(STORE_LIST, character, STORE_PRICES)

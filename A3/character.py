@@ -2,10 +2,6 @@ def generate_name():
     return input('What\'s your name?: ')
 
 
-# def character_coords(x_coord: int, y_coord: int) -> list:
-#     return [x_coord, y_coord]
-
-
 def player_character(x_coord: int, y_coord: int) -> dict:
     the_character = {'Name:': generate_name(),
                      'Style Level:': [10, 10],  # SL list: 1st value is max SL, second is current SL
