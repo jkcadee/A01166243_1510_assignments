@@ -3,6 +3,7 @@ from A01166243_1510_assignments.A3.character import *
 from A01166243_1510_assignments.A3.monster import *
 from A01166243_1510_assignments.A3.constants import *
 
+
 def roll_die(rolls, sides):
     number = 0
     if rolls < 1 or sides <= 1:
@@ -119,6 +120,7 @@ def combat(opponent_one, opponent_two):
     turn_1_player = roll_for_advantage(opponent_one, opponent_two)
     opponent = {}
     player = {}
+    cash = money_generator()
     if turn_1_player == 1:
         player = opponent_one
         opponent = opponent_two
@@ -131,6 +133,8 @@ def combat(opponent_one, opponent_two):
         combat_round(roll_hit, opponent, player)
         turn_1_player = switch_turns(turn_1_player)  # FIX THIS
         if check_if_dead(opponent, player):
+            player['Cash:'] += cash
+            print(f"You ({player['Name:']}) received ${cash}!")
             dead = True
 
 
@@ -152,14 +156,15 @@ def switch_turns(turn_1_player: int) -> int:
 
 def check_if_dead(opponent: dict, player: dict) -> bool:
     if player['Style Level:'][1] <= 0:
-        print(f"You ({opponent['Name:']}) have been killed in battle.")
+        print(f"Your ({opponent['Name:']}) style is been demolished. Back to the drawing board.")
         return True
     elif opponent['Style Level:'][1] <= 0:
-        print(f"{opponent['Name:']} has been killed in battle. You are victorious!")
+        print(f"{opponent['Name:']}'s style has been dismantled. You're free to keep searching for your fit.")
         return True
 
 
 def combat_initiation(player: dict, foe: dict):
+    print(f'{foe["Name:"]} has challenges your style!')
     user_input = input('Stay and fight or leave? (Press F to fight and L to leave)\n').capitalize()
     flee = False
     while not flee:  # FIX THIS
@@ -177,8 +182,18 @@ def combat_initiation(player: dict, foe: dict):
                 flee = True
 
 
-# def move_heal():
-# def move_enemy_chance():
+def move_heal(player: dict):
+    if player['Style Level:'][1] < player['Style Level:'][0]:
+        player['Style Level:'][1] += 2
+    elif player['Style Level:'][1] >= player['Style Level:'][0]:
+        player['Style Level:'][1] = player['Style Level:'][0]
+
+
+def move_enemy_chance(player: dict, foe: dict):
+    chance_enemy_spawn = roll_die(1, 4)
+    if chance_enemy_spawn == 1:
+        combat_initiation(player, foe)
+
 
 def money_generator():
     luck = roll_die(1, 5)
@@ -234,14 +249,18 @@ def check_if_can_buy(store_prices: list, player: dict, pick_item: int, store_lis
 
 def game():
     character = player_character(roll_die(1, 3), roll_die(1, 3))
-    # foe = opp_character()
-    # board = create_board(5, 5)
-    # while True:
-    #     display_board(board, character)
-    #     character['Position:'] = validate_move(5, character, user_choice())
+    foe = opp_character()
+    board = create_board(5, 5)
+    while True:
+        direction = user_choice()
+        display_board(board, character)
+        character['Position:'] = validate_move(5, character, direction)
+
     # combat_initiation(character, foe)
     # print(f'You got ${money_generator()}!')
-    shopping(STORE_LIST, character, STORE_PRICES)
+    # shopping(STORE_LIST, character, STORE_PRICES)
+    # move_heal(character)
+    # print(character['Style Level:'])
 
 
 def main():
