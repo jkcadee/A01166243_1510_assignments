@@ -1,4 +1,3 @@
-import random
 from A01166243_1510_assignments.A3.character import *
 from A01166243_1510_assignments.A3.monster import *
 from A01166243_1510_assignments.A3.constants import *
