@@ -25,13 +25,14 @@ def create_board(row_size, col_size):
 
 def user_choice():
     """
-    Return a user input of N, S, E, W.
+    Return a user input of N, S, E, W or Q.
 
     :precondition: Input must be N, S, E, W.
     :postcondition: Returns the input capitalized.
     :return: The input capitalized.
     """
-    move = input('Where would you like to move? (Use N, S, E, W to move North, South, East or West.) \n')
+    move = input('Where would you like to move? (Use N, S, E, W to move North, South, East or West. Press Q to quit '
+                 'the game.) \n')
     return move.capitalize()
 
 
@@ -131,7 +132,7 @@ def combat(opponent_one, opponent_two):
             opponent = opponent_one
         roll_hit = roll_die(1, 20)
         combat_round(roll_hit, opponent, player)
-        turn_1_player = switch_turns(turn_1_player)  # FIX THIS
+        turn_1_player = switch_turns(turn_1_player)
         if check_if_dead(opponent, player, cash):
             dead = True
 
@@ -168,7 +169,7 @@ def combat_initiation(player: dict, foe: dict):
     print(f'{foe["Name:"]} has challenges your style!')
     user_input = input('Stay and fight or leave? (Press F to fight and L to leave)\n').capitalize()
     flee = False
-    while not flee:  # FIX THIS
+    while not flee:
         if user_input == 'F':
             combat(player, foe)
             flee = True
@@ -263,11 +264,13 @@ def game():
     character = player_character(roll_die(1, 3), roll_die(1, 3))
     foe = opp_character()
     board = create_board(5, 5)
-    print(board)
-    while True:
+    game_over = False
+    while not game_over:
         display_board(board, character)
         print(character['Position:'])
         direction = user_choice()
+        if direction == 'Q':
+            break
         character['Position:'] = validate_move(5, character, direction)
         event = roll_die(1, 4)
         stop = move_event_chance(character, foe, event, STORE_LIST, STORE_PRICES)
