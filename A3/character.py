@@ -19,20 +19,20 @@ def player_character(x_coord: int, y_coord: int) -> dict:
     :return: A dictionary with all the character stats.
     """
     the_character = {'Name:': generate_name(),
-                     'Style Level:': [10, 10],  # SL list: 1st value is max SL, second is current SL
+                     'Style Level:': [10, 1],  # SL list: 1st value is max SL, second is current SL
                      'Inventory:': [],
                      'Cash:': 0,
                      'Position:': [x_coord, y_coord]}
     return the_character
 
 
-def print_character(a_character: dict):  # Must always be a dictionary
+def print_character(a_character: dict):
     """
     Print the character in a visually appealing way.
 
     :param a_character: Dictionary.
     :precondition: Must have values inside of it.
-    :postcondition: Prints the values in a nice, orderly fashion. 
+    :postcondition: Prints the values in a nice, orderly fashion.
     """
     for stat_name, stat_info in a_character.items():
         if isinstance(stat_info, list):

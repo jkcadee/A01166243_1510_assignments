@@ -17,8 +17,6 @@ def roll_die(rolls: int, sides: int) -> int:
 
         >>> roll_die(0, 0)
         0
-        >>> roll_die(1, 1)
-        1
         """
     number = 0
     if rolls < 1 or sides <= 1:
@@ -258,15 +256,21 @@ def check_if_dead(opponent: dict, player: dict, cash: int) -> bool:
     cash.
     :return: A boolean based on if the characters are dead or not.
     """
+    key = 'Cash:'
     if player['Style Level:'][1] <= 0:
-        print(f"Your ({opponent['Name:']}) style is been demolished. Back to the drawing board.")
+        if key in player:
+            print(f"Your ({opponent['Name:']}) style is been demolished. Back to the drawing board.")
         return True
     elif opponent['Style Level:'][1] <= 0:
-        print(f"{opponent['Name:']}'s style has been dismantled. You're free to keep searching for your fit.")
-        player['Cash:'] += cash
-        print(f"You ({player['Name:']}) received ${cash}!")
+        if key in opponent:
+            print(f"{opponent['Name:']}'s style has been dismantled. You're free to keep searching for your fit.")
+            player['Cash:'] += cash
+            print(f"You ({player['Name:']}) received ${cash}!")
         return True
     return False
+
+
+# def user_or_computer_determiner(player: dict):
 
 
 def combat_initiation(player: dict, foe: dict):
@@ -308,8 +312,10 @@ def move_heal(player: dict):
     """
     if player['Style Level:'][1] < player['Style Level:'][0]:
         player['Style Level:'][1] += 2
+        print(f"You now have {player['Style Level:']} style points.")
     elif player['Style Level:'][1] >= player['Style Level:'][0]:
         player['Style Level:'][1] = player['Style Level:'][0]
+        print("You've got max style points.")
 
 
 def move_event_chance(player: dict, foe: dict, event_spawner: int, store_list: list, store_prices: list) -> bool:
@@ -442,16 +448,20 @@ def game():
     """
     Runs game logic.
     """
+    print("Welcome to 'Find Your Fit'!, feel free to play for as long as you want, there is no win condition.")
     character = player_character(roll_die(1, 3), roll_die(1, 3))
-    foe = opp_character()
     board = create_board(5, 5)
     game_over = False
-    print(f'Your character is {print_character(character)}')
+    print('Your character is:')
+    print_character(character)
     while not game_over:
+        foe = opp_character()
         display_board(board, character)
         print(character['Position:'])
+        print(f"Your items are {character['Inventory:']}")
         direction = user_choice()
         if direction == 'Q':
+            print('Thanks for playing!')
             break
         character['Position:'] = validate_move(5, character, direction)
         event = roll_die(1, 4)

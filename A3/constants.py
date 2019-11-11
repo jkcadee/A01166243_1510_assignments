@@ -1,5 +1,29 @@
 STORE_LIST = ["1. Giorno Guccivana Handbag",
-              "2. Alyx Rollercoaster Belt"]
+              "2. Alyx Rollercoaster Belt",
+              "3. TRUE DAMAGE 'GIANTS' Hoodie"
+              "4. Hyein Seo Armguard",
+              "5. OFF-WHITE Industrial Belt",
+              "6. Prada Platform Sneakers",
+              "7. Alpha Industries B-15 Bomber Jacket",
+              "8. Acronym Gore-Tex Technical Parka",
+              "9. Versace Virtus Shoulder Bag",
+              "10. Adidas Y-3 Shell Joggers",
+              "11. Stone Island Paintball Camo Jacket",
+              "12. GOLF LE FLEUR Varsity Jacket",
+              "13. Nike X Fear of God Parka",
+              "14. Heron Preston NASA Cap"]
 
 STORE_PRICES = [250,
-                300]
+                300,
+                150,
+                550,
+                210,
+                1440,
+                380,
+                2500,
+                700,
+                460,
+                1750,
+                740,
+                410,
+                150]
