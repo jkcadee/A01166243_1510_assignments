@@ -326,12 +326,12 @@ def move_heal(player: dict):
     :precondition: Dictionary must have 'Name:', 'Style Level:'.
     :postcondition: Heal the player if they have less than max health.
     """
-    if player['Style Level:'][1] < player['Style Level:'][0]:
-        player['Style Level:'][1] += 2
-        print(f"You now have {player['Style Level:']} style points.")
-    elif player['Style Level:'][1] == 9:
+    if player['Style Level:'][1] == 9:
         player['Style Level:'][1] += 1
-        print(f"You now have {player['Style Level:']} style points.")
+        print(f"You now have {player['Style Level:'][1]} style points.")
+    elif player['Style Level:'][1] < player['Style Level:'][0]:
+        player['Style Level:'][1] += 2
+        print(f"You now have {player['Style Level:'][1]} style points.")
     elif player['Style Level:'][1] >= player['Style Level:'][0]:
         player['Style Level:'][1] = player['Style Level:'][0]
         print("You've got max style points.")
