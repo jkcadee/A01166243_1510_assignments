@@ -12,7 +12,7 @@ class TestCombatRound(TestCase):
         opponent = {'Name:': 'Defender', 'Style Level:': [5, 5]}
         damage = 1
         expected_output = f"{opponent['Name:']} was hit! You ({player['Name:']}) dealt {damage} damage to them. " \
-                          f"They have {opponent['Style Level:'][1] - 1} style points left. You ({player['Name:']}) " \
+                          f"They have {opponent['Style Level:'][1] - damage} style points left. You ({player['Name:']}) " \
                           f"have {player['Style Level:'][1]} style points left.\n"
         combat_round(12, opponent, player)
         self.assertEqual(mock_stdout.getvalue(), expected_output)
