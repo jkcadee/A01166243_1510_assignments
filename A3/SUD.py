@@ -114,6 +114,8 @@ def validate_move(maximum: int, character: dict, direction: str) -> dict:
         character = player_movement(character, maximum, direction)
     elif direction in ('E', 'W'):
         character = player_movement(character, maximum, direction)
+    else:
+        print('Incorrect input.')
     return character
 
 
@@ -256,21 +258,35 @@ def check_if_dead(opponent: dict, player: dict, cash: int) -> bool:
     cash.
     :return: A boolean based on if the characters are dead or not.
     """
-    key = 'Cash:'
     if player['Style Level:'][1] <= 0:
-        if key in player:
-            print(f"Your ({opponent['Name:']}) style is been demolished. Back to the drawing board.")
+        die_action(player, opponent, cash)
         return True
     elif opponent['Style Level:'][1] <= 0:
-        if key in opponent:
-            print(f"{opponent['Name:']}'s style has been dismantled. You're free to keep searching for your fit.")
-            player['Cash:'] += cash
-            print(f"You ({player['Name:']}) received ${cash}!")
+        die_action(opponent, player, cash)
         return True
     return False
 
 
-# def user_or_computer_determiner(player: dict):
+def die_action(dead_player: dict, live_player: dict, cash: int):
+    """
+    Determine if the user or computer dies in combat.
+
+    :param dead_player: Dictionary.
+    :precondition: Dictionary must have 'Name:', 'Style Level:'.
+    :param live_player: Dictionary.
+    :precondition: Dictionary must have 'Name:', 'Style Level:', 'Cash:'.
+    :param cash: Integer.
+    :precondition: Must be a value over 0.
+    :postcondition: Prints whether or not the user or computer dies. Puts cash into the user dictionary if the computer
+    dies.
+    """
+    key = 'Cash:'
+    if key in dead_player:
+        print(f"Your ({dead_player['Name:']}) style is been demolished. Back to the drawing board.")
+    else:
+        print(f"{dead_player['Name:']}'s style has been dismantled. You're free to keep searching for your fit.")
+        live_player['Cash:'] += cash
+        print(f"You ({live_player['Name:']}) received ${cash}!")
 
 
 def combat_initiation(player: dict, foe: dict):
@@ -312,6 +328,9 @@ def move_heal(player: dict):
     """
     if player['Style Level:'][1] < player['Style Level:'][0]:
         player['Style Level:'][1] += 2
+        print(f"You now have {player['Style Level:']} style points.")
+    elif player['Style Level:'][1] == 9:
+        player['Style Level:'][1] += 1
         print(f"You now have {player['Style Level:']} style points.")
     elif player['Style Level:'][1] >= player['Style Level:'][0]:
         player['Style Level:'][1] = player['Style Level:'][0]

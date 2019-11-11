@@ -19,7 +19,7 @@ def player_character(x_coord: int, y_coord: int) -> dict:
     :return: A dictionary with all the character stats.
     """
     the_character = {'Name:': generate_name(),
-                     'Style Level:': [10, 1],  # SL list: 1st value is max SL, second is current SL
+                     'Style Level:': [10, 10],  # SL list: 1st value is max SL, second is current SL
                      'Inventory:': [],
                      'Cash:': 0,
                      'Position:': [x_coord, y_coord]}
