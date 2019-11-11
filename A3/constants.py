@@ -1,6 +1,6 @@
 STORE_LIST = ["1. Giorno Guccivana Handbag",
               "2. Alyx Rollercoaster Belt",
-              "3. TRUE DAMAGE 'GIANTS' Hoodie"
+              "3. TRUE DAMAGE 'GIANTS' Hoodie",
               "4. Hyein Seo Armguard",
               "5. OFF-WHITE Industrial Belt",
               "6. Prada Platform Sneakers",

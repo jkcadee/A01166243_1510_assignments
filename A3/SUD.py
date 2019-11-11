@@ -460,7 +460,7 @@ def check_if_can_buy(store_prices: list, player: dict, pick_item: int, store_lis
         space_pos = temp_item.find(' ')
         item_to_print = temp_item[space_pos + 1: len(temp_item)]
         temp_stored_items.append(item_to_print)
-        print('\nThank you for your purchase!')
+        print(f'\nYou have purchased {item_to_print}. Thank you for your purchase!')
 
 
 def game():
