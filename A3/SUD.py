@@ -1,9 +1,25 @@
 from A01166243_1510_assignments.A3.character import *
 from A01166243_1510_assignments.A3.monster import *
 from A01166243_1510_assignments.A3.constants import *
+import doctest
 
 
-def roll_die(rolls, sides):
+def roll_die(rolls: int, sides: int) -> int:
+    """Rolls a die with an inputted amount of rolls and sides.
+    Return the sum of a integer created from a set of random numbers based on the number of rolls and the die's sides.
+
+    :param rolls: positive integer, must be more than 1.
+    :param sides: positive integer, must be more than 0.
+    :precondition: Both parameters must be positive integers and rolls must be more than 1.
+    :postcondition: Receive an integer equivalent to the sum of a "die" created by the number_of_sides and rolled however
+                    many times as specified by number_of_rolls.
+    :return: An integer equal to the sum of a die created by number_of_sides rolled by number_of_rolls times.
+
+        >>> roll_die(0, 0)
+        0
+        >>> roll_die(1, 1)
+        1
+        """
     number = 0
     if rolls < 1 or sides <= 1:
         return 0
@@ -12,7 +28,21 @@ def roll_die(rolls, sides):
     return number
 
 
-def create_board(row_size, col_size):
+def create_board(row_size: int, col_size: int) -> list:
+    """Return a game board with rows of lists that contain tuples by index (x, y).
+
+    :param row_size: Int.
+    :precondition: Must be an integer.
+    :param col_size: Int.
+    :precondition: Must be an integer.
+    :postcondition: Creates a list with sub-lists containing tuples (x-coord, y-coord)
+    :return: A list with (x-coord, y-coord) tuples. (0 - 4)
+
+    >>> create_board(1, 1)
+    [[(0, 0)]]
+    >>> create_board(2, 2)
+    [[(0, 0), (0, 1)], [(1, 0), (1, 1)]]
+    """
     playing_board = []
     for row in range(row_size):
         sub_list = []
@@ -35,7 +65,21 @@ def user_choice():
     return move.capitalize()
 
 
-def player_movement(character_coordinates: dict, maximum_limit: int, direction: str) -> dict:  # FIX THIS
+def player_movement(character_coordinates: dict, maximum_limit: int, direction: str) -> dict:
+    """Return a list of changed character coordinates. The function also checks if the move is valid.
+
+    N and W always subtract 1 from the position, and S and E always add one to the position.
+
+    :param character_coordinates: A list.
+    :precondition: Must be a list.
+    :param maximum_limit: An int.
+    :precondition: Must be an integer.
+    :param direction: A string.
+    :precondition: Must be a string.
+    :postcondition: Returns the changed character list with either 1 added to x, y or 1 subtracted from x, y positions.
+    :return: A list with 1 added to x, y or 1 subtracted from x, y positions. Will not move is coords == 0 or maximum.
+
+    """
     current_position = character_coordinates['Position:']
     if direction in 'N':
         if current_position[0] != 0:
@@ -67,8 +111,6 @@ def validate_move(maximum: int, character: dict, direction: str) -> dict:
     :precondition: Must be a string.
     :postcondition: Returns the changed character list from move_character depending on which direction was selected.
     :return: A list modified by move_character depending on the direction selected.
-
-
     """
     if direction in ('N', 'S'):
         character = player_movement(character, maximum, direction)
@@ -78,6 +120,15 @@ def validate_move(maximum: int, character: dict, direction: str) -> dict:
 
 
 def display_board(play_board: list, character: dict):
+    """
+    Print an 'x' for an empty space, and a 'c' for where the character is.
+
+    :param play_board: A list.
+    :precondition: Must be a list.
+    :param character: A list.
+    :precondition: Must be a list.
+    :postcondition: Prints an empty space 'x' and the character's location 'c'.
+    """
     character_key = character['Position:']
     for index in range(len(play_board)):
         for index_two in range(len(play_board[index])):
@@ -95,7 +146,18 @@ def display_board(play_board: list, character: dict):
 
 
 def roll_for_advantage(opp_one, opp_two):
-    """Roll a die to see who goes first."""
+    """Roll a die to see who goes first.
+    Return a value based on which of the two characters roll higher.
+
+    The code checks which roll is higher, then assigns that character as going first. If the rolls are the same, it keeps
+    rolling until one of the numbers are higher.
+
+    :param opp_one: Dictionary.
+    :param opp_two: Dictionary.
+    :preconditions: Both parameters must be dictionaries.
+    :postcondition: Return a number indicating which character goes first.
+    :return: A number that indicates which character's turn goes first.
+    """
     opp_one_goes_first = False
     opp_two_goes_first = False
     roll_again = True
@@ -116,7 +178,16 @@ def roll_for_advantage(opp_one, opp_two):
         return 2
 
 
-def combat(opponent_one, opponent_two):
+def combat(opponent_one: dict, opponent_two: dict):
+    """
+    Run all functions related to combat.
+
+    :param opponent_one: Dictionary.
+    :precondition: Dictionary must have 'Name:', 'Style Level:', 'Cash:'.
+    :param opponent_two: Dictionary.
+    :precondition: Dictionary must have 'Name:', 'Style Level:', 'Cash:'.
+    :postcondition: Combat is run until someone dies.
+    """
     turn_1_player = roll_for_advantage(opponent_one, opponent_two)
     opponent = {}
     player = {}
@@ -137,15 +208,36 @@ def combat(opponent_one, opponent_two):
 
 
 def combat_round(roll_to_hit: int, opponent: dict, player: dict):
+    """
+    Simulate a combat round between two opponents.
+
+    :param roll_to_hit: Integer.
+    :precondition: Roll to hit must be between 1, 20
+    :param opponent: Dictionary.
+    :precondition: Dictionary must have 'Name:', 'Style Level:'.
+    :param player: Dictionary.
+    :precondition: Dictionary must have 'Name:', 'Style Level:'.
+    :postcondition: Deal damage if hit lands and print a message, print a message if attack misses.
+    """
     if roll_to_hit > 10:
-        opponent['Style Level:'][1] -= roll_die(1, 6)
-        print(opponent['Style Level:'])
+        damage = roll_die(1, 6)
+        opponent['Style Level:'][1] -= damage
+        print(f"{opponent['Name:']} was hit! You ({player['Name:']}) dealt {damage} damage to them. "
+              f"They have {opponent['Style Level:'][1]} style points left. You ({player['Name:']}) have "
+              f"{player['Style Level:'][1]} style points left.")
     else:
-        print(f"Miss! {opponent['Name:']} has {opponent['Style Level:'][1]} hit points left. You "
-              f"({player['Name:']}) have {player['Style Level:'][1]} hit points left.")
+        print(f"Miss! {opponent['Name:']} has {opponent['Style Level:'][1]} style points left. You "
+              f"({player['Name:']}) have {player['Style Level:'][1]} style points left.")
 
 
 def switch_turns(turn_1_player: int) -> int:
+    """
+    Switches the order for the character that goes first.
+
+    :param turn_1_player: An integer.
+    :precondition: Must be 1 or 2.
+    :return: An integer.
+    """
     if turn_1_player == 1:
         return 2
     elif turn_1_player == 2:
@@ -153,6 +245,19 @@ def switch_turns(turn_1_player: int) -> int:
 
 
 def check_if_dead(opponent: dict, player: dict, cash: int) -> bool:
+    """
+    Return a boolean based on whether or not the character is alive.
+
+    :param opponent: Dictionary.
+    :precondition: Dictionary must have 'Name:', 'Style Level:'.
+    :param player: Dictionary.
+    :precondition: Dictionary must have 'Name:', 'Style Level:', 'Cash:'.
+    :param cash: Integer.
+    :precondition: Must be higher than 0.
+    :postcondition: Check whether or not the player or the opponent dead, if the opponent dies, the player receives
+    cash.
+    :return: A boolean based on if the characters are dead or not.
+    """
     if player['Style Level:'][1] <= 0:
         print(f"Your ({opponent['Name:']}) style is been demolished. Back to the drawing board.")
         return True
@@ -165,6 +270,16 @@ def check_if_dead(opponent: dict, player: dict, cash: int) -> bool:
 
 
 def combat_initiation(player: dict, foe: dict):
+    """
+    Set up the combat loop.
+
+    :param player: Dictionary.
+    :precondition: Dictionary must have 'Name:', 'Style Level:', 'Cash:'.
+    :param foe: Dictionary.
+    :precondition: Dictionary must have 'Name:', 'Style Level:'.
+    :postcondition: Run the while loop. If L is pressed, the character flees and may take damage. If F is pressed, the
+    fight is started.
+    """
     print(f'{foe["Name:"]} has challenges your style!')
     user_input = input('Stay and fight or leave? (Press F to fight and L to leave)\n').capitalize()
     flee = False
@@ -184,6 +299,13 @@ def combat_initiation(player: dict, foe: dict):
 
 
 def move_heal(player: dict):
+    """
+    Heals the player if they step on an empty space.
+
+    :param player: Dictionary.
+    :precondition: Dictionary must have 'Name:', 'Style Level:'.
+    :postcondition: Heal the player if they have less than max health.
+    """
     if player['Style Level:'][1] < player['Style Level:'][0]:
         player['Style Level:'][1] += 2
     elif player['Style Level:'][1] >= player['Style Level:'][0]:
@@ -191,6 +313,23 @@ def move_heal(player: dict):
 
 
 def move_event_chance(player: dict, foe: dict, event_spawner: int, store_list: list, store_prices: list) -> bool:
+    """
+    Return a boolean that states whether or not the player is dead.
+
+    Run an if/else statement that determines what happens when the player moves. Will return False if player is alive.
+
+    :param player: Dictionary.
+    :precondition: Dictionary must have 'Name:', 'Style Level:', 'Cash:'.
+    :param foe: Dictionary.
+    :precondition: Dictionary must have 'Name:', 'Style Level:'.
+    :param event_spawner: Integer.
+    :precondition: Must be from 1 - 4.
+    :param store_list: List.
+    :precondition: Must have at least one item in it.
+    :param store_prices: List.
+    :precondition: Must have at least one item in it.
+    :return: A boolean that states whether or not the player dies.
+    """
     if event_spawner == 1:
         combat_initiation(player, foe)
         return is_player_dead(player)
@@ -201,13 +340,25 @@ def move_event_chance(player: dict, foe: dict, event_spawner: int, store_list: l
     return False
 
 
-def is_player_dead(player):
+def is_player_dead(player: dict) -> bool:
+    """
+    Return a boolean if the player is dead or not.
+
+    :param player: Dictionary.
+    :precondition: Dictionary must have 'Name:', 'Style Level:'.
+    :return: A boolean depending if the player is dead or not
+    """
     if player['Style Level:'][1] <= 0:
         return True
     return False
 
 
 def money_generator():
+    """
+    Return an integer denoting how much money is received.
+
+    :return: A number based on how lucky the player is.
+    """
     luck = roll_die(1, 5)
     if luck == 1:
         money_received = random.randint(1, 2) * 100
@@ -226,7 +377,19 @@ def money_generator():
         return money_received
 
 
-def shopping(store_list: list, player: dict, store_prices: list):
+def shopping(store_list: list, player: dict, store_prices: list) -> list:
+    """
+    Return a list based on what items were bought.
+
+    :param store_list: List.
+    :precondition: Must have at least one item in it.
+    :param player: Dictionary.
+    :precondition: Dictionary must have 'Cash:'.
+    :param store_prices: List.
+    :precondition: Must have at least one item in it.
+    :postcondition: Appends an item into the list based on if it can be bought.
+    :return: A list of bought items.
+    """
     temp_stored_items = []
     current_money = player['Cash:']
     while True:
@@ -250,6 +413,22 @@ def shopping(store_list: list, player: dict, store_prices: list):
 
 
 def check_if_can_buy(store_prices: list, player: dict, pick_item: int, store_list: list, temp_stored_items: list):
+    """
+    Check if the player has enough money to buy the items in the store list.
+
+    :param store_prices: List.
+    :precondition: Must have at least one item in it.
+    :param player: Dictionary.
+    :precondition: Dictionary must have 'Cash:'.
+    :param pick_item: Integer.
+    :precondition: Must be a number + 1 the store list index.
+    :param store_list: List.
+    :precondition: Must have at least one item in it.
+    :param temp_stored_items: List.
+    :precondition: Must have at least one item in it.
+    :postcondition: Will check if the character has enough money to buy the item. It will get added to their inventory
+    if yes.
+    """
     current_money = player['Cash:']
     if store_prices[pick_item - 1] <= current_money:
         temp_item = store_list[pick_item - 1]
@@ -260,10 +439,14 @@ def check_if_can_buy(store_prices: list, player: dict, pick_item: int, store_lis
 
 
 def game():
+    """
+    Runs game logic.
+    """
     character = player_character(roll_die(1, 3), roll_die(1, 3))
     foe = opp_character()
     board = create_board(5, 5)
     game_over = False
+    print(f'Your character is {print_character(character)}')
     while not game_over:
         display_board(board, character)
         print(character['Position:'])
@@ -275,15 +458,13 @@ def game():
         stop = move_event_chance(character, foe, event, STORE_LIST, STORE_PRICES)
         if stop:
             break
-    # combat_initiation(character, foe)
-    # print(f'You got ${money_generator()}!')
-    # shopping(STORE_LIST, character, STORE_PRICES)
-    # move_heal(character)
-    # print(character['Style Level:'])
 
 
 def main():
+    """Runs main functions (game).
+    """
     game()
+    doctest.testmod()
 
 
 if __name__ == '__main__':
