@@ -46,11 +46,16 @@ def eratothenes(upperbound: int) -> list:
     []
     >>> eratothenes(10)
     [2, 3, 5, 7]
+    >>> eratothenes(-1)
+    Wrong input!
     """
-    all_numbers = [i for i in range(0, upperbound + 1)]
-    all_numbers.remove(0)
-    all_numbers.remove(1)
-    return all_numbers if len(all_numbers) == 0 else sieve_multiples(all_numbers)
+    if upperbound <= 0:
+        print("Wrong input!")
+    else:
+        all_numbers = [i for i in range(0, upperbound + 1)]
+        all_numbers.remove(0)
+        all_numbers.remove(1)
+        return all_numbers if len(all_numbers) == 0 else sieve_multiples(all_numbers)
 
 
 def main():
@@ -59,4 +64,5 @@ def main():
 
 
 if __name__ == "__main__":
+    main()
     doctest.testmod()
