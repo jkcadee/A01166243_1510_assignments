@@ -6,7 +6,7 @@ def sieve_multiples(number_list: list) -> list:
     Return a list of prime numbers generated from the parameter list.
 
     :param number_list: List.
-    :precondition: Must be a list with at least one element higher or at 2. Values must be integers. Values my be
+    :precondition: Must be a list with at least one element higher or at 2. Values must be integers. Values must be
     concurrent.
     :postcondition: Loop through the list and determine which values are prime numbers. The prime numbers are added to a
     separate list and that list is returned.
