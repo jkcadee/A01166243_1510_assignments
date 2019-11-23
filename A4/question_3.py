@@ -1,9 +1,16 @@
+def check_value(element):
+    return element % 2
+
+
 def dijkstra(colour_list: list) -> None:
-    for index, value in enumerate(colour_list):
-        if value == "red":
-            colour_list[index], colour_list[index - 1] = colour_list[index - 1], colour_list[index]
+    sorted(colour_list, key=check_value)
 
 
-dutch = ['red', 'white', 'blue', 'red', 'blue']
-dijkstra(dutch)
-print(dutch)
+dutch = ['red', 'white', 'blue', 'red', 'blue', 'white', 'blue', 'red']
+test = [1, 2, 4, 5]
+
+sorted(test, key=check_value)
+# dijkstra(test)
+print(test)
+# dijkstra(dutch)
+# print(dutch)
