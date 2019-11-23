@@ -12,4 +12,3 @@ class TestGcd(TestCase):
 
     def test_gcd_10(self):
         self.assertEqual(10, gcd(50, 30))
-        
