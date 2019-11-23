@@ -12,6 +12,7 @@ class TestEratothenes(TestCase):
     def test_eratothenes_30(self):
         self.assertEqual([2, 3, 5, 7, 11, 13, 17, 19, 23, 29], eratothenes(30))
 
-    # def test_eratothenes_incorrect_input(self):
-    #     with self.assertRaises(ValueError):
-
+    def test_eratothenes_incorrect_input(self):
+        with self.assertRaises(ValueError):
+            eratothenes(-1)
+            print("Invalid number.")
