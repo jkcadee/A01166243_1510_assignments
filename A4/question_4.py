@@ -9,6 +9,11 @@ def selection_sort(unsorted_list):
                     swap = True
 
 
-a_list = [0, -1, 9, 30, 8]
-selection_sort(a_list)
-print(a_list)
+def main():
+    a_list = [0, -1, 9, 30, 8]
+    selection_sort(a_list)
+    print(a_list)
+
+
+if __name__ == "__main__":
+    main()

@@ -12,3 +12,9 @@ class TestGcd(TestCase):
 
     def test_gcd_10(self):
         self.assertEqual(10, gcd(50, 30))
+
+    def test_gcd_double_negative(self):
+        self.assertEqual(1, gcd(-70, -9))
+
+    def test_gcd_single_negative(self):
+        self.assertEqual(1, gcd(-70, 9))

@@ -17,12 +17,12 @@ def gcd(a: int, b: int) -> int:
     >>> gcd(50, 30)
     10
     >>> gcd(-57, -8)
-    -1
+    1
     """
     if a == 0 or b == 0:
         raise ZeroDivisionError
     remainder = a % b
-    return gcd(b, remainder) if remainder != 0 else b
+    return gcd(b, remainder) if remainder != 0 else abs(b)
 
 
 def main():
