@@ -1,4 +1,9 @@
 def check_value(element):
+    """
+    
+    :param element:
+    :return:
+    """
     return element[1]
 
 
