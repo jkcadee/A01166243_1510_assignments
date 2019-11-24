@@ -7,21 +7,20 @@ def eratothenes(upperbound: int) -> list:
 
     :param upperbound: Integer.
     :precondition: Must be an integer higher than zero.
-    :postcondition: Removes any numbers that are not prime numbers from the all_numbers list and returns a list of prime
+    :postcondition: Removes any numbers that are not prime numbers from the all_numbers list and returns a list of
+                    prime.
     numbers from taken from values from the all_numbers list.
     :return: A list of prime numbers taken from all_numbers list.
 
-    # >>> eratothenes(5)
-    # [2, 3, 5]
-    # >>> eratothenes(1)
-    # []
-    # >>> eratothenes(10)
-    # [2, 3, 5, 7]
-    # >>> eratothenes(-1)
-    # Wrong input!
+    >>> eratothenes(5)
+    [2, 3, 5]
+    >>> eratothenes(1)
+    []
+    >>> eratothenes(10)
+    [2, 3, 5, 7]
     """
     if upperbound <= 0:
-        raise ValueError("Invalid Number.")
+        raise ValueError("Invalid Number. Must be higher than 0")
     bool_primes_list = [True for i in range(0, upperbound + 1)]
     bool_primes_list[0] = False
     bool_primes_list[1] = False

@@ -1,3 +1,5 @@
+import doctest
+
 # Global Constant
 _calories = {"lettuce": 5, "carrot": 52, "apple": 72, "bread": 66,
              "pasta": 221, "rice": 225, "milk": 122, "cheese": 115,
@@ -5,23 +7,44 @@ _calories = {"lettuce": 5, "carrot": 52, "apple": 72, "bread": 66,
              }
 
 
-def adding_total_calories(total_calories):
+def adding_total_calories(total_calories: int) -> int:
+    """
+
+    :param total_calories:
+    :return:
+    """
     for item in _calories:
         total_calories = total_calories + _calories[item]
     return total_calories
 
 
-def getting_calorie_value(new_item):
+def getting_calorie_value(new_item: str) -> None:
+    """
+
+    :param new_item:
+    :return:
+    """
     new_item_calories = int(input("Enter calories for " + new_item + ": "))
     _calories[new_item] = new_item_calories
 
 
-def appending_food_item_names(food_item_names):
+def appending_food_item_names(food_item_names: list) -> None:
+    """
+
+    :param food_item_names:
+    :return:
+    """
     for item in _calories:
         food_item_names.append(item)
 
 
-def printing_food_and_calories(food_item_names, total_calories):
+def printing_food_and_calories(food_item_names: list, total_calories: int) -> None:
+    """
+
+    :param food_item_names:
+    :param total_calories:
+    :return:
+    """
     avg_calories = total_calories / len(_calories)
     print("\nFood Items:", sorted(food_item_names))
     print("Total Calories:", total_calories,
@@ -30,6 +53,10 @@ def printing_food_and_calories(food_item_names, total_calories):
 
 # Input loop
 def calories():
+    """
+
+    :return:
+    """
     new_item = input("Enter food item to add, or ’q’ to exit: ")
     while new_item != "q":
         getting_calorie_value(new_item)
@@ -42,6 +69,7 @@ def calories():
 
 
 def main():
+    """"""
     calories()
 
 
