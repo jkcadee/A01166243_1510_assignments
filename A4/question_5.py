@@ -32,6 +32,7 @@ def cash_money(cash: float) -> dict:
 
 
 def main():
+    """Runs functions"""
     print(cash_money(188.41))
 
 

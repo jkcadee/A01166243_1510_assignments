@@ -15,6 +15,8 @@ def digit_1(clock_lines_dict: dict, clock_num_list: list, number_of_lines: int) 
                     number_of_lines.
     :return: The integer stored inside of number_of_lines.
 
+    >>> digit_1({0: 6, 1: 2, 2: 5, 3: 5, 4: 4, 5: 5, 7: 4, 8: 7, 9: 6}, [], 0)
+    2
     """
     for time, lines in clock_lines_dict.items():
         if time == 1:
@@ -40,6 +42,13 @@ def digit_2_to_4(clock_lines_dict: dict, clock_num_list: list, number_of_lines: 
     :postcondition: Adds the time into the clock_num_list as the digit. Adds the amount of lines into the
                     number_of_lines.
     :return: The integer stored inside of number_of_lines.
+
+    >>> digit_2_to_4({0: 6, 1: 2, 2: 5, 3: 5, 4: 4, 5: 5, 7: 4, 8: 7, 9: 6}, [], 0, 0, 2)
+    6
+    >>> digit_2_to_4({0: 6, 1: 2, 2: 5, 3: 5, 4: 4, 5: 5, 7: 4, 8: 7, 9: 6}, [], 0, 0, 5)
+    6
+    >>> digit_2_to_4({0: 6, 1: 2, 2: 5, 3: 5, 4: 4, 5: 5, 7: 4, 8: 7, 9: 6}, [], 0, 0, 9)
+    7
     """
     dict_value = 0
     highest_key = 0
@@ -61,14 +70,29 @@ def clock_num_list_formatting(clock_num_list: list) -> str:
     :precondition: Must have 4 values in the list.
     :postcondition: Reformat the list into a time as a string.
     :return: A reformatted string for the time.
+
+    >>> clock_num_list_formatting([1, 0, 0, 8])
+    '10:08'
+    >>> clock_num_list_formatting([1, 2, 0, 0])
+    '12:00'
+    >>> clock_num_list_formatting([1, 1, 1, 1])
+    '11:11'
     """
     return f"{clock_num_list[0]}{clock_num_list[1]}:{clock_num_list[2]}{clock_num_list[3]}"
 
 
 def im_not_sleepy():
     """
+    Return a string stating the the time that produces the highest amount of bars. It also states what the highest
+    amount of bars is.
 
-    :return:
+    :precondition: Must be a 12 hour clock. Digit 1 can only have 1 in it, not 0.
+    :postcondition: Calculate the time that produces the highest amount of bars. The highest amount of bars is also
+    calculated.
+    :return: A string stating the time with and the highest amount of bars.
+
+    >>> im_not_sleepy()
+    'The time that requires the highest amount of bars is 10:08. The amount of bars is 21.'
     """
     clock_lines_dict = {0: 6, 1: 2, 2: 5, 3: 5, 4: 4, 5: 5, 7: 4, 8: 7, 9: 6}
     clock_num_list = []
@@ -82,6 +106,7 @@ def im_not_sleepy():
 
 
 def main():
+    """Runs the functions"""
     print(im_not_sleepy())
 
 
