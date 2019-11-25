@@ -15,4 +15,3 @@ class TestEratothenes(TestCase):
     def test_eratothenes_incorrect_input(self):
         with self.assertRaises(ValueError):
             eratothenes(-1)
-            print("Invalid number.")

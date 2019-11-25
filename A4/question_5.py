@@ -20,7 +20,7 @@ def cash_money(cash: float) -> dict:
     >>> cash_money(0.01)
     {100: 0, 50: 0, 20: 0, 10: 0, 5: 0, 2: 0, 1: 0, 0.25: 0, 0.1: 0, 0.05: 0, 0.01: 1}
     """
-    if cash < 0:
+    if cash < 0.0:
         raise ValueError('Must be a positive double over 0!')
     cash_dict = {100: 0, 50: 0, 20: 0, 10: 0, 5: 0, 2: 0, 1: 0, 0.25: 0, 0.1: 0, 0.05: 0, 0.01: 0}
     for bill_coin_amount, amount_of_cash in cash_dict.items():
