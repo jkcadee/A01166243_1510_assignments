@@ -19,15 +19,16 @@ def gcd(a: int, b: int) -> int:
     >>> gcd(-57, -8)
     1
     """
-    if a == 0 or b == 0:
-        raise ZeroDivisionError
     remainder = a % b
     return gcd(b, remainder) if remainder != 0 else abs(b)
 
 
 def main():
     """Runs the functions in the program."""
-    print(gcd(70, 9))
+    try:
+        print(gcd(70, 9))
+    except ZeroDivisionError:
+        raise ZeroDivisionError
 
 
 if __name__ == "__main__":

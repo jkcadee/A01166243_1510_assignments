@@ -19,8 +19,6 @@ def eratothenes(upperbound: int) -> list:
     >>> eratothenes(10)
     [2, 3, 5, 7]
     """
-    if upperbound <= 0:
-        raise ValueError("Invalid Number. Must be higher than 0")
     bool_primes_list = [True for i in range(0, upperbound + 1)]
     bool_primes_list[0] = False
     bool_primes_list[1] = False
@@ -34,7 +32,10 @@ def eratothenes(upperbound: int) -> list:
 
 def main():
     """Runs functions in program"""
-    print(eratothenes(30))
+    try:
+        print(eratothenes(30))
+    except ValueError:
+        raise ValueError("Number should be higher than 0!")
 
 
 if __name__ == "__main__":

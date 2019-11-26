@@ -6,8 +6,6 @@ def selection_sort(unsorted_list):
     :precondition: List must only contain integers and have more than one value.
     :postcondition: Swap all elements in the list to be in ascending order.
     """
-    if type(unsorted_list) != list:
-        raise TypeError('Must be a list of sortable items! (More than one element).')
     swap = True
     while swap:
         swap = False
@@ -21,8 +19,12 @@ def selection_sort(unsorted_list):
 def main():
     """Runs the functions"""
     a_list = [0, -1, 9, 30, 8]
-    selection_sort(a_list)
-    print(a_list)
+    try:
+        selection_sort(a_list)
+    except TypeError:
+        raise TypeError('Must be a list of sortable items! (More than one element).')
+    else:
+        print(a_list)
 
 
 if __name__ == "__main__":
