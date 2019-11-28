@@ -35,7 +35,7 @@ def main():
         print(cash_money(188.41))
     except ValueError:
         raise ValueError('Must be a positive double over 0!')
-    
+
 
 if __name__ == "__main__":
     main()
