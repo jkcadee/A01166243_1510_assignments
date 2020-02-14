@@ -11,7 +11,8 @@ STORE_LIST = ["1. Giorno Guccivana Handbag",
               "11. Stone Island Paintball Camo Jacket",
               "12. GOLF LE FLEUR Varsity Jacket",
               "13. Nike X Fear of God Parka",
-              "14. Heron Preston NASA Cap"]
+              "14. Heron Preston NASA Cap",
+              "15. Lacoste Technical Coat"]
 
 STORE_PRICES = [250,
                 300,
